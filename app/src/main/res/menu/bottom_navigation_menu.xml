@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navigation_orchards"
+        android:icon="@drawable/ic_orchards"
+        android:title="Huertas"/>
+
+    <item android:id="@+id/navigation_analisis"
+        android:icon="@drawable/ic_analisis"
+        android:title="Análisis" />
+
+    <item android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Configuración"/>
+</menu>
