@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Agrobit</string>
+
+    <string name="welcome_back">Bienvenido de nuevo</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="slogan">Escaneo agrícola inteligente</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="forget_password">Recuperar contraseña</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="name">Nombre</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="message_sigin_correct_title">¡Registro exitoso!</string>
+    <string name="message_sigin_correct_desciption">Ahora revisa tu bandeja de entrada y confirma tu correo para poder iniciar sesión</string>
+    <string name="message_sigin_fail_title">¡Registro fallido!</string>
+    <string name="message_sigin_fail_desciption">El registro no se ha completado. Es posible que el correo ya se encuentre registrado</string>
+
 </resources>
