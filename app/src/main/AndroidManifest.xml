@@ -4,9 +4,8 @@
 
     <application
             android:allowBackup="true"
-            android:icon="@drawable/ic_agrobit"
+            android:icon="@drawable/ic_agrobit_rounded"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".activities.MainActivity">
