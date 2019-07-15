@@ -1,0 +1,88 @@
+{
+  "orchards": [
+    {
+      "id": "1",
+      "name": "Predio Los Tres Reyes",
+      "size": "10 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "avocado"
+    },
+    {
+      "id": "2",
+      "name": "Predio Rosales",
+      "size": "201 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "corn"
+    },
+    {
+      "id": "3",
+      "name": "Rancho Potrillos",
+      "size": "450 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "corn"
+    },
+    {
+      "id": "4",
+      "name": "El Tepozal",
+      "size": "312 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "avocado"
+    },
+    {
+      "id": "5",
+      "name": "Monumental",
+      "size": "5 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "corn"
+    },
+    {
+      "id": "6",
+      "name": "Azaleas",
+      "size": "33 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "corn"
+    },
+    {
+      "id": "7",
+      "name": "Fresnito",
+      "size": "10 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "avocado"
+    },
+    {
+      "id": "8",
+      "name": "El Jazmín",
+      "size": "201 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "avocado"
+    },
+    {
+      "id": "9",
+      "name": "Ocotillos I",
+      "size": "450 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "avocado"
+    },
+    {
+      "id": "10",
+      "name": "Ocotillos II",
+      "size": "312 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "avocado"
+    },
+    {
+      "id": "11",
+      "name": "Laguna",
+      "size": "5 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "corn"
+    },
+    {
+      "id": "12",
+      "name": "Huescalapa",
+      "size": "33 ha",
+      "image" : "http://www.edamam.com/web-img/5f5/5f51c89f832d50da84e3c05bef3f66f9.jpg",
+      "type": "corn"
+    }
+  ]
+}

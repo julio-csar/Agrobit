@@ -5,11 +5,14 @@
         android:icon="@drawable/ic_orchards"
         android:title="Huertas"/>
 
-    <item android:id="@+id/navigation_analisis"
+    <item android:id="@+id/navigation_tasks"
         android:icon="@drawable/ic_analisis"
-        android:title="Análisis" />
+        android:title="Tareas" />
 
     <item android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
         android:title="Configuración"/>
+    <item android:id="@+id/navigation_support"
+        android:icon="@drawable/ic_support"
+          android:title="Soporte"/>
 </menu>

@@ -12,4 +12,9 @@
     <color name="darkGreen">#7DBF06</color>
     <color name="lightBlue">#166CBF</color>
     <color name="lightGray">#F9F9FA</color>
+    <color name="darkRed">#E2574C</color>
+    <color name="black">#000000</color>
+    <color name="blueBackground">#3e4ca5</color>
+    <color name="white_alph">#88ffffff</color>
 </resources>
+
