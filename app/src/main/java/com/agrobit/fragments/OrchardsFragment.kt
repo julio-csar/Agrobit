@@ -19,14 +19,17 @@ import android.widget.EditText
 import android.R.string
 import android.app.SearchManager
 import android.content.ComponentName
+import android.content.Intent
 import android.text.InputType
 import android.util.Base64
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
+import android.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.MenuItemCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.agrobit.account.ProfileActivity
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +38,8 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 private lateinit var listView: ListView
+private lateinit var searchView: SearchView
+private lateinit var item:MenuItem
 private var search:SearchView?=null
 
 
@@ -47,19 +52,14 @@ private var search:SearchView?=null
  * create an instance of this fragment.
  *
  */
-class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener
-    {/*
-        override fun onQueryTextSubmit(query: String?): Boolean {
+class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,SearchView.OnCloseListener
+    {
+        override fun onClose(): Boolean {
+            searchView.clearFocus()
+            searchView.setQuery("",false)
+            item.collapseActionView()
             return false
-            Toast.makeText(this.context,"Paso aca",Toast.LENGTH_LONG).show()
-        return true
         }
-
-        override fun onQueryTextChange(newText: String?): Boolean {
-            return false
-            Toast.makeText(this.context,"Paso aca",Toast.LENGTH_LONG).show()//To change body of created functions use File | Settings | File Templates.
-            return true
-        }*/
 
         override fun onRefresh() {
             Toast.makeText(this.context,"Paso aca",Toast.LENGTH_LONG).show()//To change body of created functions use File | Settings | File Templates.
@@ -92,14 +92,14 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener
         val adapter = OrchardAdapter(this.context, orchardList)
         listView.adapter = adapter
         initToolbar()
-        initComponents()
+
+        (vista.findViewById(R.id.swipeRefresh) as SwipeRefreshLayout).setOnRefreshListener(this)
+        this.setHasOptionsMenu(true)
+
 
         return vista
     }
-        private fun initComponents(){
-            ( vista.findViewById(R.id.swipeRefresh) as SwipeRefreshLayout).setOnRefreshListener(this)
-            setHasOptionsMenu(true)
-        }
+
 
     private fun initToolbar() {
         val toolbar = vista.findViewById(R.id.toolbar_orchards) as Toolbar
@@ -116,30 +116,61 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener
 
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
       inflater?.inflate(R.menu.menu_orchards,menu)
+      super.onCreateOptionsMenu(menu, inflater)
 
       val manger= activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-      val searchItem=menu?.findItem(R.id.action_menu_search)
-      val searchView=searchItem?.actionView as SearchView
+      item = menu?.findItem(R.id.action_menu_search)!!
+      searchView=item?.actionView as SearchView
 
-      searchView.setSearchableInfo(manger.getSearchableInfo(activity!!.componentName))
-      searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
-          override fun onQueryTextSubmit(query: String?):Boolean{
-              searchView.clearFocus()
-              searchView.setQuery("",false)
-              searchItem.collapseActionView()
-              Toast.makeText(context,"Searching for $query",Toast.LENGTH_LONG).show()
+
+
+      searchView.setOnQueryTextFocusChangeListener{view,hasFocus->
+      if(hasFocus){
+          searchView.showKeyboard()
+      }else{
+          searchView.hideKeyboard()
+      }}
+      item.setOnActionExpandListener(object: MenuItem.OnActionExpandListener{
+          override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+              searchView.isIconified=false
+              searchView.requestFocusFromTouch()
               return true
           }
-          override fun onQueryTextChange(newText: String?):Boolean {
+
+          override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+              searchView.setQuery("",true)
               return true
           }
       })
-      //if(search==null)
-        //  Toast.makeText(this.context,"Nulo",Toast.LENGTH_LONG).show()
-      //search!!.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
-      //search!!.setOnQueryTextListener(this)
+
+      searchView.setOnCloseListener(this)
+
+      //searchView.setSearchableInfo(manger.getSearchableInfo(activity!!.componentName))
+
+      searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+          override fun onQueryTextSubmit(query:String?):Boolean{
+              searchView.clearFocus()
+              searchView.setQuery("",false)
+              item.collapseActionView()
+              Toast.makeText(context,"Loking fo $query",Toast.LENGTH_LONG).show()
+              return true
+          }
+
+          override fun onQueryTextChange(newText: String?): Boolean {
+              return true
+          }
+      })
   }
-        /*override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        fun View.showKeyboard(){
+            val im =context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            im.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY)
+        }
+        fun View.hideKeyboard(){
+            val imm=context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(windowToken,0)
+        }
+        /*
+        override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
             Intrinsics.checkParameterIsNotNull(menu, "menu");
             Intrinsics.checkParameterIsNotNull(inflater, "inflater");
             menu?.clear()
@@ -150,10 +181,16 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener
             Toast.makeText(this.context,"Paso aca",Toast.LENGTH_LONG).show()
             if (actionView != null) {
                 val searchView = actionView as SearchView
-                searchView.setOnQueryTextListener(this)
+                //searchView.setOnQueryTextListener(this)
                 searchView.setQueryHint(getString(R.string.label_hint_search_orchard_screen))
-                val findViewById:View = searchView.findViewById(R.id.search_src_text)
-                if (findViewById != null) {
+                val findViewById:View = searchView.findViewById(getResources().getIdentifier("id/search_src_text", null, null))
+
+                val editText = findViewById as EditText
+                editText.setHintTextColor(ContextCompat.getColor(activity!!, R.color.white_alpha))
+                editText.setTextColor(ContextCompat.getColor(activity!!, R.color.colorWhite))
+
+
+                if (false) {
                     val editText = findViewById as EditText
                     val activity = activity
                     if (activity == null) {
@@ -202,14 +239,16 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener
             }
             throw TypeCastException("null cannot be cast to non-null type androidx.appcompat.widget.SearchView")
         }
-
+*/
         override fun onOptionsItemSelected(item: MenuItem?): Boolean {
             when(item?.itemId){
-
+                R.id.action_menu_profile->{
+                    startActivity(Intent(this@OrchardsFragment.context, ProfileActivity::class.java))
+                }
             }
             return true
         }
-*/
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         /*
@@ -261,6 +300,8 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener
             }
     }
 }
+
+
 class expandListener internal constructor(
     internal /* synthetic */ val orc: OrchardsFragment,
     internal /* synthetic */ val menu: Menu

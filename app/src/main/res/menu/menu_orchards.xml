@@ -5,8 +5,11 @@
     <item android:icon="@drawable/ic_search_white"
           android:id="@+id/action_menu_search"
           android:orderInCategory="1"
+          android:focusable="true"
+          app:iconifiedByDefault="false"
+          android:focusableInTouchMode="true"
           android:title="@string/buscar"
-          app:actionViewClass="androidx.appcompat.widget.SearchView"
+          app:actionViewClass="android.widget.SearchView"
           app:showAsAction="never|always|collapseActionView"/>
     <item android:icon="@drawable/ic_profilepic_white"
           android:id="@+id/action_menu_profile"

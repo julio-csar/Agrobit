@@ -15,6 +15,12 @@
     <color name="darkRed">#E2574C</color>
     <color name="black">#000000</color>
     <color name="blueBackground">#3e4ca5</color>
-    <color name="white_alph">#88ffffff</color>
+    <color name="white_alpha">#88ffffff</color>
+
+    <color name="profile_ranch">#333333</color>
+    <color name="profile_info">#333333</color>
+    <color name="profile_info_title">#4e4e51</color>
+    <color name="initialSignUpButton">#333e85</color>
+    <color name="greyHeaderBackground">#fafafa</color>
 </resources>
 

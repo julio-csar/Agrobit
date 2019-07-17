@@ -3,6 +3,7 @@ package com.agrobit.splashscreen
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.agrobit.account.LoginActivity
 import com.agrobit.activities.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -28,4 +29,5 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }
     }
+
 }

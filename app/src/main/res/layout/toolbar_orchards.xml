@@ -9,4 +9,5 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         app:collapseIcon="@drawable/ic_appbar_backarrow"
-        />
+android:theme="@style/ToolBarStyle"
+/>

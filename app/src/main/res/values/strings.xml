@@ -27,4 +27,9 @@
     <string name="buscar">Buscar</string>
     <string name="label_hint_search_orchard_screen">Buscar</string>
 
+    <string name="label_profile_information">Información general de la cuenta</string>
+    <string name="label_profile_client">Nombre</string>
+    <string name="label_profile_email">Correo</string>
+    <string name="label_profile_phone">Teléfono</string>
+    <string name="label_profile_orchards">Huertas</string>
 </resources>
