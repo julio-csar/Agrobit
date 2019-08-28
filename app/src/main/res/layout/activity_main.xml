@@ -39,6 +39,7 @@
             app:itemBackground="@drawable/navigation_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:labelVisibilityMode="labeled"
             android:layout_alignParentBottom="true"
             app:menu="@menu/bottom_navigation_menu"
             app:itemIconTint="@drawable/item_selected"

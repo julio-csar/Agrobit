@@ -3,10 +3,10 @@
     android:height="1024dp"
     android:viewportWidth="1024"
     android:viewportHeight="1024">
-  <path
+ <path
       android:strokeWidth="1"
       android:pathData="M0,0h1024v1024h-1024z"
-      android:fillColor="@color/colorPrimary"/>
+      android:fillColor="@color/colorWhite"/>
   <path
       android:pathData="M395.9,527.1L238.7,302.7c3.2,-2.2 7.2,-3.2 11.2,-2.5c-8.2,-1.4 -16,4 -17.4,12.2l-26.1,148.3C176,632.8 290.8,796.7 462.9,827l131.3,23.2L488.5,744.5C428.3,684.3 397.5,605.9 395.9,527.1z"
       android:fillColor="#A2D147"/>

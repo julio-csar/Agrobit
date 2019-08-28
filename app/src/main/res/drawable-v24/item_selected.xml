@@ -5,6 +5,6 @@
         android:color="@color/colorAccent"/>
 
     <item android:state_checked="false"
-        android:color="@color/colorPrimary"/>
+        android:color="#92a0ad"/>
 
 </selector>

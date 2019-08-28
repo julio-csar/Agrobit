@@ -66,7 +66,7 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,Search
 
         }
 
-        // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
@@ -79,6 +79,7 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,Search
             param2 = it.getString(ARG_PARAM2)
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -104,8 +105,7 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,Search
     private fun initToolbar() {
         val toolbar = vista.findViewById(R.id.toolbar_orchards) as Toolbar
         Intrinsics.checkExpressionValueIsNotNull(toolbar, "toolbar_home")
-        toolbar.setTitle("" as CharSequence)
-        (vista.findViewById(R.id.toolbar_orchards) as Toolbar).setNavigationIcon(R.drawable.ic_appbar_settings as Int)
+        toolbar.setTitle("Huertas" as CharSequence)
         var activity = activity
         if (activity !is AppCompatActivity) {
             activity = null
@@ -144,9 +144,6 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,Search
       })
 
       searchView.setOnCloseListener(this)
-
-      //searchView.setSearchableInfo(manger.getSearchableInfo(activity!!.componentName))
-
       searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
           override fun onQueryTextSubmit(query:String?):Boolean{
               searchView.clearFocus()
@@ -169,83 +166,7 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,Search
             val imm=context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(windowToken,0)
         }
-        /*
-        override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-            Intrinsics.checkParameterIsNotNull(menu, "menu");
-            Intrinsics.checkParameterIsNotNull(inflater, "inflater");
-            menu?.clear()
-            inflater?.inflate(R.menu.menu_orchards, menu)
-            val findItem = menu?.findItem(R.id.action_menu_search)
-
-            val actionView: View? =findItem?.actionView
-            Toast.makeText(this.context,"Paso aca",Toast.LENGTH_LONG).show()
-            if (actionView != null) {
-                val searchView = actionView as SearchView
-                //searchView.setOnQueryTextListener(this)
-                searchView.setQueryHint(getString(R.string.label_hint_search_orchard_screen))
-                val findViewById:View = searchView.findViewById(getResources().getIdentifier("id/search_src_text", null, null))
-
-                val editText = findViewById as EditText
-                editText.setHintTextColor(ContextCompat.getColor(activity!!, R.color.white_alpha))
-                editText.setTextColor(ContextCompat.getColor(activity!!, R.color.colorWhite))
-
-
-                if (false) {
-                    val editText = findViewById as EditText
-                    val activity = activity
-                    if (activity == null) {
-                        Intrinsics.throwNpe()
-                    }
-                    //Toast.makeText(this.context,"Paso aca1",Toast.LENGTH_LONG).show()
-                    editText.setTextColor(ContextCompat.getColor(activity!!, R.color.colorWhite))
-                    val activity2 = getActivity()
-                    if (activity2 == null) {
-                        Intrinsics.throwNpe()
-                    }
-                    editText.setHintTextColor(ContextCompat.getColor(activity2!!, R.color.white_alpha))
-                    val a =expandListener(this,menu)
-                    //searchView.setOnQueryTextFocusChangeListener(CreateOptionsMenu(this))
-                    //findItem.setOnActionExpandListener(a)
-                    val findItem2 = menu.findItem(R.id.action_menu_profile)
-                    //Toast.makeText(this.context,"Paso aca3",Toast.LENGTH_LONG).show()
-                    /*val signUpValues2 = this.signUpValues
-                    if (signUpValues2 != null) {
-                        val simpleName = javaClass.simpleName
-                        Intrinsics.checkExpressionValueIsNotNull(simpleName, "this.javaClass.simpleName")
-                        str = signUpValues2!!.getProfilePic(simpleName)
-                    }
-                    val decode = Base64.decode(str, 0)
-                    val decodeByteArray = BitmapFactory.decodeByteArray(decode, 0, decode.size)
-                    if (decodeByteArray != null) {
-                        val context = context
-                        if (context == null) {
-                            Intrinsics.throwNpe()
-                        }
-                        Intrinsics.checkExpressionValueIsNotNull(context!!, "context!!")
-                        val bitmapDrawable = BitmapDrawable(
-                            resources,
-                            PackageUtilsKt.getCroppedBitmap(
-                                decodeByteArray,
-                                PackageUtilsKt.convertDpToPixel(24.0f, context) as Int
-                            )
-                        )
-                        Intrinsics.checkExpressionValueIsNotNull(findItem2, "profileItem")
-                        findItem2.setIcon(bitmapDrawable)
-                        return
-                    }*/
-                    return
-                }
-                throw TypeCastException("null cannot be cast to non-null type android.widget.EditText")
-            }
-            throw TypeCastException("null cannot be cast to non-null type androidx.appcompat.widget.SearchView")
-        }
-*/
         override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-            when(item?.itemId){
-                R.id.action_menu_profile->{
-                    startActivity(Intent(this@OrchardsFragment.context, ProfileActivity::class.java))
-                }
-            }
             return true
         }
 
@@ -264,17 +185,6 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,Search
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
@@ -300,45 +210,3 @@ class OrchardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener,Search
             }
     }
 }
-
-
-class expandListener internal constructor(
-    internal /* synthetic */ val orc: OrchardsFragment,
-    internal /* synthetic */ val menu: Menu
-) : OnActionExpandListener {
-
-    override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
-        Intrinsics.checkParameterIsNotNull(menuItem, "item")
-        //val findItem = this.menu.findItem(R.id.action_menu_funding)
-        //findItem.isVisible = true
-        val findItem2 = this.menu.findItem(R.id.action_menu_profile)
-        Intrinsics.checkExpressionValueIsNotNull(findItem2, "menu.findItem(R.id.action_menu_profile)")
-        findItem2.isVisible = true
-        //this.orc.appearBalance()
-        return true
-    }
-
-    override fun onMenuItemActionExpand(menuItem: MenuItem): Boolean {
-        Intrinsics.checkParameterIsNotNull(menuItem, "item")
-        //val findItem = this.menu.findItem(R.id.action_menu_funding)
-        //Intrinsics.checkExpressionValueIsNotNull(findItem, "menu.findItem(R.id.action_menu_funding)")
-        //findItem.isVisible = false
-        val findItem2 = this.menu.findItem(R.id.action_menu_profile)
-        Intrinsics.checkExpressionValueIsNotNull(findItem2, "menu.findItem(R.id.action_menu_profile)")
-        findItem2.isVisible = false
-        Toast.makeText(this.orc.context,"onMenuItemActionExpand",Toast.LENGTH_LONG).show()
-        //ExtensionsKt.log("onMenuItemActionExpand")
-        return true
-    }
-}
-
-class CreateOptionsMenu internal constructor(
-    internal var orc:OrchardsFragment
-): View.OnFocusChangeListener {
-    override fun onFocusChange(p0: View?, p1: Boolean) {
-        Toast.makeText(this.orc.context,"Actualizado",Toast.LENGTH_LONG).show()
-        //Aqui se hace lo necesario cuando se actualiza
-    }
-
-}
-

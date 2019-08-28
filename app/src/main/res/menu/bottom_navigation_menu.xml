@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/navigation_start"
+          android:icon="@drawable/ic_agrobit"
+          android:title="Inicio"/>
     <item android:id="@+id/navigation_orchards"
         android:icon="@drawable/ic_orchards"
         android:title="Huertas"/>
@@ -8,10 +11,6 @@
     <item android:id="@+id/navigation_tasks"
         android:icon="@drawable/ic_analisis"
         android:title="Tareas" />
-
-    <item android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="Configuración"/>
     <item android:id="@+id/navigation_support"
         android:icon="@drawable/ic_support"
           android:title="Soporte"/>
