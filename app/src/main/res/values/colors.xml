@@ -4,9 +4,15 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#7dbf06</color>
+    <color name="colorBlue">#1f7cff</color>
+    <color name="tabSelected">#505d69</color>
+    <color name="tabTextColor">#93a0ab</color>
+    <color name="bgType">#f2f6f9</color>
+
+    <color name="card_bg_color">#f6f6f6</color>
 
     <color name="colorWhite">#FFFFFF</color>
-    <color name="darkBlue">#273b7a</color>
+    <color name="darkBlue">#133273</color>
     <color name="darkGray">#636466</color>
 
     <color name="darkGreen">#7DBF06</color>

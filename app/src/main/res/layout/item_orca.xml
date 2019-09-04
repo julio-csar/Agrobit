@@ -9,7 +9,7 @@
 android:layout_marginTop="8dp"
         android:layout_marginRight="8dp">
     <RelativeLayout
-            android:id="@+id/item_text"
+            android:id="@+id/item_text_at"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -20,13 +20,13 @@ android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
         <TextView
-                android:id="@+id/lastat"
+                android:id="@+id/lastproblemt"
                 android:layout_width="wrap_content"
                 android:gravity="left"
-                android:layout_below="@id/item_size"
-                android:layout_alignStart="@id/item_size"
+                android:layout_below="@id/lastate"
+                android:layout_alignStart="@id/lastate"
                 android:layout_height="wrap_content"
-                android:text="Último análisis"
+                android:text="Problema detectado"
                 android:textStyle="normal"
                 android:textSize="14dp"
                 android:fontFamily="sans-serif-light"
@@ -34,11 +34,11 @@ android:layout_marginTop="8dp"
         />
 
         <TextView
-                android:id="@+id/lasta"
+                android:id="@+id/lastproblem"
                 android:layout_width="wrap_content"
                 android:gravity="left"
-                android:layout_below="@id/lastat"
-                android:layout_alignStart="@id/item_size"
+                android:layout_below="@id/lastproblemt"
+                android:layout_alignStart="@id/lastproblemt"
                 android:layout_height="wrap_content"
                 android:text="21/08/2019, 14:25hs"
                 android:textStyle="normal"
@@ -46,28 +46,21 @@ android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-light"
                 android:layout_marginTop="0dp"
         />
-        <LinearLayout
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
+        <ImageView
+                android:id="@+id/status_at"
+                android:scaleType="fitEnd"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_f3"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal"
                 android:layout_alignParentEnd="true"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/lasta">
-            <ImageView
-                    android:id="@+id/tareasp"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_pending"/>
-            <ImageView
-                    android:layout_gravity="right"
-                    android:id="@+id/tareaspro"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_progress"/>
-        </LinearLayout>
+                android:layout_alignBottom="@+id/lastproblem"
+        android:layout_below="@id/more">
+        </ImageView>
         <ImageView
+                android:id="@+id/more"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_alignParentEnd="true"
@@ -79,7 +72,7 @@ android:layout_marginTop="8dp"
                 android:src="@drawable/ic_t5"/>
         <TextView
                 android:layout_marginStart="40dp"
-                android:id="@+id/item_title"
+                android:id="@+id/item_title_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -93,21 +86,31 @@ android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-light"/>
 
         <TextView
-                android:id="@+id/item_size"
+                android:id="@+id/lastatet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/item_title"
-                android:layout_alignStart="@id/item_title"
-                android:layout_alignLeft="@id/item_title"
+                android:layout_below="@+id/item_title_at"
+                android:layout_alignStart="@id/item_title_at"
+                android:layout_alignLeft="@id/item_title_at"
                 android:layout_marginRight="16dp"
-                android:lineSpacingExtra="8dp"
                 android:layout_marginTop="8dp"
-                android:ellipsize="end"
-                android:maxLines="3"
                 android:textStyle="normal"
                 android:fontFamily="sans-serif-light"
+                android:textSize="14dp"
+                tools:text="Último análisis" />
+        <TextView
+                android:id="@+id/lastate"
+                android:layout_width="wrap_content"
+                android:gravity="left"
+                android:layout_below="@id/lastatet"
+                android:layout_alignStart="@id/lastatet"
+                android:layout_height="wrap_content"
+                android:text="21/08/2019, 14:25hs"
+                android:textStyle="normal"
                 android:textSize="16dp"
-                tools:text="19 has" />
+                android:fontFamily="sans-serif-light"
+                android:layout_marginTop="0dp"
+        />
 
     </RelativeLayout>
     <ImageView

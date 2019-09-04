@@ -41,17 +41,24 @@ class Orchard(
     val name: String,
     val size: String,
     val imageUrl: String,
-    val type: String) {
+    val type: String,
+    val status:Int,
+    val crea:String,
+    val lasta:String,
+    val lastproblems:String,
+    val tareasp:Int,
+    val tareaspro:Int,
+    val tareasok:Int){
 
   companion object {
-    fun getorchardsFromFile(context: Context?): ArrayList<Orchard> {
+    fun getorchardsFromFile(context: Context?,filename:String,array:String): ArrayList<Orchard> {
       val recipeList = ArrayList<Orchard>()
 
       try {
         // Load data
-        val jsonString = context?.let { loadJsonFromAsset("orchards.json", it) }
+        val jsonString = context?.let { loadJsonFromAsset(filename, it) }
         val json = JSONObject(jsonString)
-        val orchards = json.getJSONArray("orchards")
+        val orchards = json.getJSONArray(array)
 
         // Get Recipe objects from data
         (0 until orchards.length()).mapTo(recipeList) {
@@ -59,7 +66,14 @@ class Orchard(
               orchards.getJSONObject(it).getString("name"),
               orchards.getJSONObject(it).getString("size"),
               orchards.getJSONObject(it).getString("image"),
-              orchards.getJSONObject(it).getString("type"))
+              orchards.getJSONObject(it).getString("type"),
+              orchards.getJSONObject(it).getInt("status"),
+              orchards.getJSONObject(it).getString("crea"),
+              orchards.getJSONObject(it).getString("lasta"),
+              orchards.getJSONObject(it).getString("lastproblems"),
+              orchards.getJSONObject(it).getInt("tareasp"),
+              orchards.getJSONObject(it).getInt("tareaspro"),
+              orchards.getJSONObject(it).getInt("tareasok"))
         }
       } catch (e: JSONException) {
         e.printStackTrace()

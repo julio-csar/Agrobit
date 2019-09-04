@@ -9,7 +9,7 @@
 android:layout_marginTop="8dp"
         android:layout_marginRight="8dp">
     <RelativeLayout
-            android:id="@+id/item_text"
+            android:id="@+id/item_text_ul"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -23,10 +23,10 @@ android:layout_marginTop="8dp"
                 android:id="@+id/lastat"
                 android:layout_width="wrap_content"
                 android:gravity="left"
-                android:layout_below="@id/item_size"
-                android:layout_alignStart="@id/item_size"
+                android:layout_below="@id/item_size_ul"
+                android:layout_alignStart="@id/item_size_ul"
                 android:layout_height="wrap_content"
-                android:text="Último análisis"
+                android:text="Creación"
                 android:textStyle="normal"
                 android:textSize="14dp"
                 android:fontFamily="sans-serif-light"
@@ -34,11 +34,11 @@ android:layout_marginTop="8dp"
         />
 
         <TextView
-                android:id="@+id/lasta"
+                android:id="@+id/crea_ul"
                 android:layout_width="wrap_content"
                 android:gravity="left"
                 android:layout_below="@id/lastat"
-                android:layout_alignStart="@id/item_size"
+                android:layout_alignStart="@id/item_size_ul"
                 android:layout_height="wrap_content"
                 android:text="21/08/2019, 14:25hs"
                 android:textStyle="normal"
@@ -46,27 +46,6 @@ android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-light"
                 android:layout_marginTop="0dp"
         />
-        <LinearLayout
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:orientation="horizontal"
-                android:layout_alignParentEnd="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/lasta">
-            <ImageView
-                    android:id="@+id/tareasp"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_pending"/>
-            <ImageView
-                    android:layout_gravity="right"
-                    android:id="@+id/tareaspro"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_progress"/>
-        </LinearLayout>
         <ImageView
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
@@ -79,7 +58,7 @@ android:layout_marginTop="8dp"
                 android:src="@drawable/ic_t5"/>
         <TextView
                 android:layout_marginStart="40dp"
-                android:id="@+id/item_title"
+                android:id="@+id/item_title_ul"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -93,12 +72,12 @@ android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-light"/>
 
         <TextView
-                android:id="@+id/item_size"
+                android:id="@+id/item_size_ul"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/item_title"
-                android:layout_alignStart="@id/item_title"
-                android:layout_alignLeft="@id/item_title"
+                android:layout_below="@+id/item_title_ul"
+                android:layout_alignStart="@id/item_title_ul"
+                android:layout_alignLeft="@id/item_title_ul"
                 android:layout_marginRight="16dp"
                 android:lineSpacingExtra="8dp"
                 android:layout_marginTop="8dp"
@@ -111,7 +90,7 @@ android:layout_marginTop="8dp"
 
     </RelativeLayout>
     <ImageView
-            android:id="@+id/item_image"
+            android:id="@+id/item_image_ul"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginStart="8dp"

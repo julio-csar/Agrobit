@@ -12,9 +12,12 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 
 import com.agrobit.R
+import com.agrobit.adapters.AdapterAnalisis
 import com.agrobit.adapters.AdapterHome
 import com.agrobit.adapters.AdapterTasks
+import com.agrobit.classes.ModelAnalisis
 import com.agrobit.classes.ModelHome
+import com.nex3z.notificationbadge.NotificationBadge
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,12 +40,21 @@ class HomeFragment : Fragment() {
     private lateinit var homeAdapter:AdapterHome
     private lateinit var models:MutableList<ModelHome>
 
+    //Para la lista de analisis
+    private lateinit var viewPagerAnalisis:ViewPager
+    private lateinit var analisisAdapter:AdapterAnalisis
+    private lateinit var modelsAnalisis:MutableList<ModelAnalisis>
+
     private lateinit var viewPagerTasks:ViewPager
     private lateinit var tasksAdapter:AdapterTasks
 
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    //Badge farmer
+    private lateinit var badgeF:NotificationBadge
+    private lateinit var badgeN:NotificationBadge
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,10 +79,29 @@ class HomeFragment : Fragment() {
         viewPager.adapter=homeAdapter
         viewPager.setPadding(20,0,20,0)
 
+        //Para la lista de analisis recientes
+        modelsAnalisis=ArrayList<ModelAnalisis>()
+        modelsAnalisis.add(ModelAnalisis(R.drawable.ic_avocado,"Los camichimes","43","Roberto S","15/08/2019","16:00"))
+        modelsAnalisis.add(ModelAnalisis(R.drawable.ic_corn,"Zapotiltic","10","Pedro Mata","31/09/2019","09:00"))
+        modelsAnalisis.add(ModelAnalisis(R.drawable.ic_avocado,"Jiquilpan","34","Carla","12/10/2019","10:15"))
+
+        analisisAdapter= AdapterAnalisis(modelsAnalisis,this.context)
+        viewPagerAnalisis=vista.findViewById(R.id.viewPagerAnalisis)
+        viewPagerAnalisis.adapter=analisisAdapter
+        viewPagerAnalisis.setPadding(20,0,20,0)
+
         tasksAdapter= AdapterTasks(null,this.context)
         viewPagerTasks=vista.findViewById(R.id.viewPagerTasks)
         viewPagerTasks.adapter=tasksAdapter
         viewPagerTasks.setPadding(20,0,20,0)
+
+        //Badge farmer
+        badgeF=vista.findViewById(R.id.badge1) as NotificationBadge
+        badgeF.setNumber(3)
+
+        //Badge notifications
+        badgeN=vista.findViewById(R.id.badge2) as NotificationBadge
+        badgeN.setNumber(9)
 
 
         return vista

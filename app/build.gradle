@@ -39,6 +39,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-database:17.0.0'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
+
+    implementation 'com.nex3z:notification-badge:0.1.0'
+    implementation "de.halfbit:pinned-section-listview:1.0.0"
 }
 
 apply plugin: 'com.google.gms.google-services'

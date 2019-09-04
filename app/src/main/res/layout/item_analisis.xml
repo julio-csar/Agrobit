@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        android:padding="5dp">
+            <ImageView
+                    android:id="@+id/ana_image"
+                    android:layout_width="60dp"
+                    android:layout_height="65dp"
+                    android:src="@drawable/ic_corn"/>
+            <TextView
+                    android:id="@+id/ana_name"
+                    android:layout_toEndOf="@id/ana_image"
+                    android:layout_marginLeft="10dp"
+                    android:text="Rancho San Gabriel"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:id="@+id/ana_area"
+                    android:layout_below="@id/ana_name"
+                    android:layout_toEndOf="@id/ana_image"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16dp"
+                    android:textStyle="normal"
+                    android:fontFamily="sans-serif-light"
+                    android:text="13 ha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <TextView
+                    android:id="@+id/ana_cond"
+                    android:layout_below="@id/ana_area"
+                    android:layout_toEndOf="@id/ana_image"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16dp"
+                    android:textStyle="normal"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Técnico Carlos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <TextView
+                    android:id="@+id/ana_fecha"
+                    android:textColor="#1f7cff"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="16dp"
+                    android:textStyle="normal"
+                    android:fontFamily="sans-serif-light"
+                    android:text="24/08/2019"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <TextView
+                    android:id="@+id/ana_hora"
+                    android:textColor="#1f7cff"
+                    android:layout_below="@id/ana_fecha"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="16dp"
+                    android:textStyle="normal"
+                    android:gravity="right"
+                    android:fontFamily="sans-serif-light"
+                    android:text="13:00h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+</LinearLayout>

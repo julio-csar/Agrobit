@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_marginTop="20dp"
+              android:layout_marginBottom="20dp"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <TextView
+            android:id="@+id/total"
+            android:textColor="@color/colorBlue"
+            android:fontFamily="sans-serif-light"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:text="341"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/descrip"
+            android:textColor="@color/tabSelected"
+            android:fontFamily="sans-serif-light"
+            android:textSize="20dp"
+            android:text="Huertas totales"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -11,7 +11,10 @@
     <item android:id="@+id/navigation_tasks"
         android:icon="@drawable/ic_analisis"
         android:title="Tareas" />
+    <item android:id="@+id/navigation_employee"
+          android:icon="@drawable/ic_farmer"
+          android:title="Empleados" />
     <item android:id="@+id/navigation_support"
-        android:icon="@drawable/ic_support"
-          android:title="Soporte"/>
+        android:icon="@drawable/ic_more"
+          android:title="Más"/>
 </menu>

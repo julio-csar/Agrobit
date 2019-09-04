@@ -11,8 +11,8 @@
             android:layout_margin="8dp">
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-        android:padding="15dp">
+                android:layout_height="wrap_content"
+                android:padding="15dp">
             <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
@@ -43,96 +43,102 @@
                     android:layout_height="wrap_content"
                     android:showDividers="middle"
             android:gravity="center">
-                <RelativeLayout
+                <LinearLayout
+                        android:minWidth="80dp"
+                        android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     <ImageView
                             android:id="@+id/imgp"
-                            android:layout_width="60dp"
+                            android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:src="@drawable/ic_pending"/>
                     <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="60dp"
-                            android:gravity="center"
-                            android:layout_toRightOf="@id/imgp"
+                            android:id="@+id/countpe"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
                             android:textSize="24dp"
                             android:textStyle="bold"
                             android:fontFamily="sans-serif-light"
                             android:text="6"/>
                     <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/imgp"
+                            android:layout_below="@id/countpe"
+                            android:gravity="center_horizontal"
                             android:textSize="14dp"
                             android:textStyle="normal"
                             android:fontFamily="sans-serif-light"
                             android:text="Pendientes"/>
-                </RelativeLayout>
+                </LinearLayout>
                 <View
                         android:layout_marginLeft="10dp"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="#62a0ad" />
-                <RelativeLayout
+                <LinearLayout
+                        android:minWidth="80dp"
                         android:layout_marginLeft="10dp"
+                        android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     <ImageView
                             android:id="@+id/imgpr"
-                            android:layout_width="60dp"
+                            android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:src="@drawable/ic_progress"/>
                     <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="60dp"
-                            android:gravity="center"
-                            android:layout_toRightOf="@id/imgpr"
+                            android:id="@+id/countpro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
                             android:textSize="24dp"
                             android:textStyle="bold"
                             android:fontFamily="sans-serif-light"
                             android:text="23"/>
                     <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/imgpr"
                             android:textSize="14dp"
+                            android:gravity="center_horizontal"
                             android:textStyle="normal"
                             android:fontFamily="sans-serif-light"
                             android:text="En progreso"/>
-                </RelativeLayout>
+                </LinearLayout>
                 <View
                         android:layout_marginLeft="10dp"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="#62a0ad" />
-                <RelativeLayout
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:minWidth="80dp"
                         android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     <ImageView
                             android:id="@+id/imgc"
-                            android:layout_width="60dp"
+                            android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:src="@drawable/ic_complete"/>
                     <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="60dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:layout_toRightOf="@id/imgc"
                             android:textSize="24dp"
                             android:textStyle="bold"
                             android:fontFamily="sans-serif-light"
-                            android:text="23"/>
+                            android:text="210"/>
                     <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/imgc"
+                            android:gravity="center_horizontal"
                             android:textSize="14dp"
                             android:textStyle="normal"
                             android:fontFamily="sans-serif-light"
                             android:text="Completas"/>
-                </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                     android:layout_width="wrap_content"
