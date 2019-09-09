@@ -7,15 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import com.agrobit.R
-import com.agrobit.adapters.OrchardUlAdapter
-import com.agrobit.classes.HeaderPage
-import com.agrobit.classes.Item
-import com.agrobit.classes.Orchard
-import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,15 +18,14 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [OrchardsUltimas.OnFragmentInteractionListener] interface
+ * [PartnerFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [OrchardsUltimas.newInstance] factory method to
+ * Use the [PartnerFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class OrchardsUltimas : Fragment() {
+class PartnerFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private lateinit var vista:View
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
@@ -51,25 +43,7 @@ class OrchardsUltimas : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        vista= inflater.inflate(R.layout.fragment_orchards_ultimas, container, false)
-
-
-        val orchardRecyclerView: RecyclerView =vista.findViewById(R.id.ultimasor_rv)
-        orchardRecyclerView.setHasFixedSize(true)
-
-        var orchardsL= Orchard.getorchardsFromFile(this.context,"orchards.json","orchards")
-        val order=orchardsL.sortedWith(compareBy({ it.crea }))
-        val itemList=ArrayList<Item>()
-        for (x in 1..5){
-                itemList.add(Item(2,order[order.size-x]))
-        }
-        itemList.add(0, Item(1, HeaderPage("Añadidas recientemente", itemList.size)))
-
-        val adapter = this.context?.let { OrchardUlAdapter(it, itemList) }
-        orchardRecyclerView.adapter=adapter
-        orchardRecyclerView.layoutManager= LinearLayoutManager(context)
-
-        return vista
+        return inflater.inflate(R.layout.fragment_partner, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -109,12 +83,12 @@ class OrchardsUltimas : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment OrchardsUltimas.
+         * @return A new instance of fragment PartnerFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            OrchardsUltimas().apply {
+            PartnerFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

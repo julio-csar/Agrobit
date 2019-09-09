@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.agrobit.R
 import com.agrobit.adapters.OrchardTotalAdapter
-import com.agrobit.classes.Header
+import com.agrobit.classes.HeaderPage
 import com.agrobit.classes.Item
 import com.agrobit.classes.Orchard
 
@@ -64,7 +64,7 @@ class OrchardsTotal : Fragment(){
         for (x in order){
             itemList.add(Item(2,x))
         }
-        itemList.add(0,Item(1, Header("Huertas totales",orchardsL.size)))
+        itemList.add(0,Item(1, HeaderPage("Huertas totales", orchardsL.size)))
 
         val adapter = this.context?.let { OrchardTotalAdapter(it, itemList) }
         orchardRecyclerView.adapter=adapter

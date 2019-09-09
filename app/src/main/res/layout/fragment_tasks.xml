@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             tools:context=".fragments.OrchardsFragment">
+             tools:context=".fragments.TasksFragment">
     <LinearLayout
-            android:layout_width="match_parent"
             android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
         <RelativeLayout
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/header"
+                android:id="@+id/header_tasks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
             <TextView
-                    android:text="Huertas"
+                    android:text="Tareas"
                     android:textColor="@color/darkBlue"
                     android:textSize="26dp"
                     android:fontFamily="sans-serif-light"
@@ -28,45 +28,35 @@
                     android:layout_height="wrap_content"/>
 
             <ImageView
-                    android:id="@+id/search_o"
+                    android:id="@+id/search_tasks"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_search_blue"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"/>
+
             <ImageView
-                    android:layout_centerInParent="true"
-                    android:id="@+id/export"
-                    android:src="@drawable/ic_share_blue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_toStartOf="@id/search_o"
-                    android:layout_marginRight="10dp"/>
-            <ImageView
-                    android:id="@+id/support"
+                    android:id="@+id/refresh_tasks"
                     android:src="@drawable/ic_synchronize"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_toStartOf="@id/export"
+                    android:layout_toStartOf="@id/search_tasks"
                     android:layout_marginRight="10dp"/>
+
         </RelativeLayout>
         <com.google.android.material.tabs.TabLayout
                 android:layout_marginTop="5dp"
-                android:id="@+id/tabs_o"
+                android:id="@+id/tab_tasks"
                 style="@style/AppTabLayout"
                 app:tabTextAppearance="@style/AppTabTextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <com.google.android.material.tabs.TabItem
-                    android:text="Todas"
+                    android:text="Lista de tareas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <com.google.android.material.tabs.TabItem
-                    android:text="Atención"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            <com.google.android.material.tabs.TabItem
-                    android:text="Últimas"
+                    android:text="Terminadas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -78,16 +68,10 @@
         <androidx.viewpager.widget.ViewPager
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-        android:id="@+id/viewPagerOrchardsF">
+                android:id="@+id/viewPagerTasksF">
 
         </androidx.viewpager.widget.ViewPager>
     </LinearLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/new_orchard"
-            android:src="@drawable/ic_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp" />
+
 
 </FrameLayout>

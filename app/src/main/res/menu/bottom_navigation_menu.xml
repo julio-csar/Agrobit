@@ -11,10 +11,10 @@
     <item android:id="@+id/navigation_tasks"
         android:icon="@drawable/ic_analisis"
         android:title="Tareas" />
-    <item android:id="@+id/navigation_employee"
+    <item android:id="@+id/navigation_partner"
           android:icon="@drawable/ic_farmer"
-          android:title="Empleados" />
-    <item android:id="@+id/navigation_support"
+          android:title="Socios" />
+    <item android:id="@+id/navigation_more"
         android:icon="@drawable/ic_more"
           android:title="Más"/>
 </menu>

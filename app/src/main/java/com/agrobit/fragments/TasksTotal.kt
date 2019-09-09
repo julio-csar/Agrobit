@@ -1,40 +1,41 @@
 package com.agrobit.fragments
 
-import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.view.*
-import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.agrobit.R
-import com.agrobit.account.ProfileActivity
+import com.agrobit.adapters.TasksTotalAdapter
+import com.agrobit.classes.HeaderPage
+import com.agrobit.classes.HeaderSection
+import com.agrobit.classes.Item
+import com.agrobit.classes.Task
+import java.util.stream.Collectors
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-private lateinit var vista:View
-private lateinit var item:MenuItem
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [StartFragment.OnFragmentInteractionListener] interface
+ * [TasksTotal.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [StartFragment.newInstance] factory method to
+ * Use the [TasksTotal.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class StartFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
-    override fun onRefresh() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+class TasksTotal : Fragment() {
+    private lateinit var vista:View
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -48,39 +49,40 @@ class StartFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        vista= inflater.inflate(R.layout.fragment_start, container, false)
-        initToolbar()
+        vista= inflater.inflate(R.layout.fragment_tasks_total, container, false)
 
-        (vista.findViewById(R.id.swipeRefreshStart) as SwipeRefreshLayout).setOnRefreshListener(this)
-        this.setHasOptionsMenu(true)
 
-        return vista
-    }
+        val orchardRecyclerView: RecyclerView =vista.findViewById(R.id.totaltasks_rv)
+        orchardRecyclerView.setHasFixedSize(true)
 
-    private fun initToolbar() {
-        val toolbar = vista.findViewById(R.id.toolbar_start) as Toolbar
-        toolbar.setTitle("" as CharSequence)
-        (vista.findViewById(R.id.toolbar_start) as Toolbar).setNavigationIcon(R.drawable.ic_appbar_settings as Int)
-        var activity = activity
-        if (activity !is AppCompatActivity) {
-            activity = null
+        val tasksL=Task.getTasksFromFile(this.context,"tasks.json","tasks")
+        val itemList=ArrayList<Item>()
+
+        var tasksByOrchard=tasksL.stream().collect(Collectors.groupingBy(Task::nameHuerta)) as HashMap<String, List<Task>>
+        for (x in tasksByOrchard){
+            itemList.add(Item(Item.HEADER_SECTION, HeaderSection(x.key.toString())))
+            for (y in x.value){
+                if(y.avance!=100)
+                    itemList.add(Item(Item.ITEM,y))
+            }
         }
-        val appCompatActivity = activity as AppCompatActivity?
-        appCompatActivity?.setSupportActionBar(vista.findViewById(R.id.toolbar_start) as Toolbar)
+        itemList.add(0,Item(Item.HEADER_PAGE, HeaderPage("Tareas incompletas", itemList.size-tasksByOrchard.size)))
+        val adapter = this.context?.let { TasksTotalAdapter(it, itemList) }
+        orchardRecyclerView.adapter=adapter
+        orchardRecyclerView.layoutManager= LinearLayoutManager(context)
+        return vista
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_start,menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
     }
@@ -113,24 +115,16 @@ class StartFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment StartFragment.
+         * @return A new instance of fragment TasksTotal.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            StartFragment().apply {
+            TasksTotal().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
-    }
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            R.id.action_start_profile->{
-                startActivity(Intent(this@StartFragment.context, ProfileActivity::class.java))
-            }
-        }
-        return true
     }
 }

@@ -19,9 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var orchardsFragment: OrchardsFragment
     private lateinit var tasksFragment: TasksFragment
-    private lateinit var startFragment: StartFragment
-    private lateinit var supportFragment: SupportFragment
+    private lateinit var moreFragment: MoreFragment
     private lateinit var homeFragment: HomeFragment
+    private lateinit var  partnerFragment: PartnerFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,10 +31,11 @@ class MainActivity : AppCompatActivity() {
     }
     private fun initComponents() {
         bottomN = findViewById(R.id.bottom_navigation)
+
         orchardsFragment = OrchardsFragment.newInstance("", "")
         tasksFragment = TasksFragment.newInstance("", "")
-        startFragment = StartFragment.newInstance("", "")
-        supportFragment = SupportFragment.newInstance("", "")
+        partnerFragment = PartnerFragment.newInstance("", "")
+        moreFragment = MoreFragment.newInstance("", "")
         homeFragment=HomeFragment.newInstance("","")
     }
     private fun initMethods() {
@@ -62,26 +63,26 @@ class MainActivity : AppCompatActivity() {
                     .commit()
                 selectItemTab(R.id.navigation_tasks)
             }
-            R.id.navigation_support->{
+            R.id.navigation_partner->{
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_container, supportFragment, "support")
+                    .replace(R.id.main_container, partnerFragment, "partner")
                     .commit()
-                selectItemTab(R.id.navigation_support)
+                selectItemTab(R.id.navigation_partner)
+            }
+            R.id.navigation_more->{
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_container, moreFragment, "more")
+                    .commit()
+                selectItemTab(R.id.navigation_more)
             }
         }
         return true
     }
     private final fun selectItemTab(i:Int) {
         val str:String = "linerToolbar";
-        if (i == R.id.navigation_support) {
-            val linearLayout:LinearLayout = findViewById(R.id.linerToolbar);
-            Intrinsics.checkExpressionValueIsNotNull(linearLayout, str);
-            linearLayout.setVisibility(View.VISIBLE);
-        } else {
             val linearLayout2:LinearLayout = findViewById(com.agrobit.R.id.linerToolbar)
             Intrinsics.checkExpressionValueIsNotNull(linearLayout2, str);
             linearLayout2.setVisibility(View.INVISIBLE);
-        }
     }
 }
 

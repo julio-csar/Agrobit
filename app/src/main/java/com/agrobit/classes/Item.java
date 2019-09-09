@@ -2,6 +2,7 @@ package com.agrobit.classes;
 
 public class Item{
     int tipo;
+    public static final int HEADER_PAGE=0,HEADER_SECTION=1,ITEM=2;
     Object item;
     public int sectionPosition;
     public int listPosition;

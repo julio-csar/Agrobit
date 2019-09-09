@@ -1,21 +1,18 @@
 package com.agrobit.adapters
 
 import android.content.Context
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.agrobit.R
 import com.agrobit.classes.Item
 import com.agrobit.classes.Orchard
 import androidx.recyclerview.widget.RecyclerView.*
-import com.agrobit.classes.Header
-import java.time.LocalDateTime
+import com.agrobit.classes.HeaderPage
 
 
 public class OrchardUlAdapter(mContext:Context, data:List<Item>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -48,7 +45,7 @@ public class OrchardUlAdapter(mContext:Context, data:List<Item>): RecyclerView.A
     else
     {
       var viewHolder:HeaderViewHolder=holder as HeaderViewHolder
-      var item:Header= data.get(position).item as com.agrobit.classes.Header
+      var item: HeaderPage = data.get(position).item as HeaderPage
       viewHolder.setIsRecyclable(false)
       viewHolder.number.setText(Integer.toString(item.total))
       viewHolder.desc.setText(item.name)
@@ -79,7 +76,7 @@ public class OrchardUlAdapter(mContext:Context, data:List<Item>): RecyclerView.A
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):RecyclerView.ViewHolder {
     if(viewType==1){
-      val layout:View=LayoutInflater.from(mContext).inflate(R.layout.header_orchards,parent,false)
+      val layout:View=LayoutInflater.from(mContext).inflate(R.layout.header_page,parent,false)
       return HeaderViewHolder(layout)
     }else{
       val layout:View=LayoutInflater.from(mContext).inflate(R.layout.item_orcul,parent,false)
