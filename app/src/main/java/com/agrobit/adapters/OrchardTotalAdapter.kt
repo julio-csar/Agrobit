@@ -83,7 +83,7 @@ public class OrchardTotalAdapter(mContext:Context, data:List<Item>): RecyclerVie
       val layout:View=LayoutInflater.from(mContext).inflate(R.layout.header_page,parent,false)
       return HeaderViewHolder(layout)
     }else{
-      val layout:View=LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false)
+      val layout:View=LayoutInflater.from(mContext).inflate(R.layout.item_orcto,parent,false)
       return OrchardViewHolder(layout)
     }
 

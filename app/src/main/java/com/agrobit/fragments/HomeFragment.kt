@@ -1,14 +1,19 @@
 package com.agrobit.fragments
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.graphics.ColorSpace
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Display
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat
 import androidx.viewpager.widget.ViewPager
 
 import com.agrobit.R
@@ -18,6 +23,7 @@ import com.agrobit.adapters.AdapterTasks
 import com.agrobit.classes.ModelAnalisis
 import com.agrobit.classes.ModelHome
 import com.nex3z.notificationbadge.NotificationBadge
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,6 +61,10 @@ class HomeFragment : Fragment() {
     //Badge farmer
     private lateinit var badgeF:NotificationBadge
     private lateinit var badgeN:NotificationBadge
+
+    //Notification
+    var CHANNEL_ID_ANDROID="com.agrobit.ANDROID"
+    var CHANNEL_NAME="ANDROID_CHANNEL"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,10 +113,32 @@ class HomeFragment : Fragment() {
         badgeN=vista.findViewById(R.id.badge2) as NotificationBadge
         badgeN.setNumber(9)
 
-
+        vista.btnmashome.setOnClickListener{view ->
+        notificacion(view)}
         return vista
     }
 
+    fun notificacion(view:View){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            val imp=NotificationManager.IMPORTANCE_HIGH
+            val mNotificationChannel=NotificationChannel(CHANNEL_ID_ANDROID,CHANNEL_NAME,imp)
+            val notificationBuilder:Notification.Builder= Notification.Builder(this@HomeFragment.context,CHANNEL_ID_ANDROID)
+                .setSmallIcon(R.drawable.ic_agrobit)
+                .setContentTitle("¡Alguien te necesita!")
+                .setContentText("Ricardo Perez te ha delegado una tarea")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            val notificationManager:NotificationManager= this.context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(mNotificationChannel)
+            notificationManager.notify(0,notificationBuilder.build())
+        }else{
+            var notificationBuilder2:NotificationCompat.Builder=NotificationCompat.Builder(this.context)
+                .setSmallIcon(R.drawable.ic_agrobit)
+                .setContentTitle("¡Alguien te necesita!")
+                .setContentText("Ricardo Perez te ha delegado una tarea")
+            val notificationManager:NotificationManager= this.context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(0,notificationBuilder2.build())
+        }
+    }
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)

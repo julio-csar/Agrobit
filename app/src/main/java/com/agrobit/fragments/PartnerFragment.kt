@@ -7,8 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.agrobit.R
+import com.agrobit.adapters.PartnerAdapter
+import com.agrobit.classes.Partner
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +33,7 @@ class PartnerFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private lateinit var vista:View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +47,20 @@ class PartnerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_partner, container, false)
+        vista= inflater.inflate(R.layout.fragment_partner, container, false)
+
+
+        val orchardRecyclerView: RecyclerView =vista.findViewById(R.id.totalpartner_rv)
+        orchardRecyclerView.setHasFixedSize(true)
+
+        val orchardsL= Partner.getPartnersFromFile(this.context,"partners.json","partners")
+        val order=orchardsL.sortedWith(compareBy({ it.name }))
+
+        val adapter = this.context?.let { PartnerAdapter(it, order) }
+        orchardRecyclerView.adapter=adapter
+        orchardRecyclerView.layoutManager= LinearLayoutManager(context)
+
+        return vista
     }
 
     // TODO: Rename method, update argument and hook method into UI event

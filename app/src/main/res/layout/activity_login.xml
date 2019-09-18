@@ -4,14 +4,44 @@
                 android:id="@+id/rootView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".account.LoginActivity">
-    <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@null"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/ic_agrobit" />
+                tools:context=".account.LoginActivity"
+                android:background="#ffffff">
+    <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/header_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+        <ImageButton
+                android:background="@color/colorWhite"
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_left_arrow"/>
+        <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/pb"
+                android:visibility="invisible"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/loaging_ring"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+        />
+    </RelativeLayout>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_login"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:textColor="@color/textGray"
+            android:textSize="22sp"
+            android:text="¡Bienvenido de nuevo!"
+    />
 
     <ProgressBar
             android:id="@+id/loginProgressBar"
@@ -36,97 +66,64 @@
             android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
-        <TextView
-                android:id="@+id/loginWelcome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/welcome_back"
-                android:textColor="@color/colorPrimary"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-        <TextView
-                android:id="@+id/loginSlogan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/loginWelcome"
-                android:layout_marginTop="0dp"
-                android:text="@string/slogan"
-                android:textColor="@color/darkGray"
-                android:textSize="15sp" />
 
         <LinearLayout
+                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/loginButton"
-                android:layout_below="@+id/loginSlogan"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:gravity="top"
                 android:orientation="vertical">
 
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/login"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
             <EditText
                     android:id="@+id/loginEmail"
+                    android:drawableLeft="@drawable/ic_mail"
                     android:layout_width="match_parent"
+                    android:drawablePadding="10dp"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/tabTextColor"
+                    android:textColor="@color/textGray"
                     android:textSize="15sp"
-                    android:hint="@string/email"
+                    android:hint="Tu correo"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"/>
 
             <EditText
                     android:id="@+id/loginPassword"
+                    android:drawableStart="@drawable/ic_closed_lock"
+                    android:drawablePadding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/tabTextColor"
+                    android:textColor="@color/textGray"
                     android:textSize="15sp"
-                    android:hint="@string/password"
+                    android:hint="Tu contraseña"
                     android:inputType="textPassword"
                     android:maxLines="1"/>
-
-            <FrameLayout
+            <TextView
+                    android:id="@+id/loginRecover"
+                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:padding="5dp">
-                <TextView
-                        android:id="@+id/loginSignup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sign_up"
-                        android:textColor="@color/darkBlue"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                <TextView
-                        android:id="@+id/loginRecover"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center_vertical"
-                        android:text="@string/forget_password"
-                        android:textColor="@color/darkBlue"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-            </FrameLayout>
+                    android:fontFamily="sans-serif-light"
+                    android:textStyle="normal"
+                    android:textColor="@color/colorBlue"
+                    android:text="¿Olvidaste la contraseña?"
+            />
+
+            <Button
+                    android:id="@+id/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/button_blue_round"
+                    android:text="Iniciar sesión"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
         </LinearLayout>
 
-        <Button
-                android:id="@+id/loginButton"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button_drawable"
-                android:text="@string/login"
-                android:textAllCaps="false"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+
     </RelativeLayout>
 </RelativeLayout>

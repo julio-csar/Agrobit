@@ -4,17 +4,46 @@
                 android:id="@+id/rootView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".account.LoginActivity">
-    <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@null"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/ic_agrobit" />
+                tools:context=".account.SignupActivity"
+                android:background="#ffffff">
+    <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/header_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+        <ImageButton
+                android:background="@color/colorWhite"
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_left_arrow"/>
+        <ImageView
+                android:id="@+id/support"
+                android:src="@drawable/ic_headphones"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"/>
+    </RelativeLayout>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_login"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:textColor="@color/textGray"
+            android:textSize="22sp"
+            android:text="¡Comienza a disfrutar Agrobit!"
+    />
 
     <ProgressBar
             android:id="@+id/signupProgressBar"
+            android:visibility="invisible"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="12dp"
@@ -22,11 +51,11 @@
             android:layout_marginBottom="-4dp"
             android:foregroundGravity="bottom"
             android:indeterminate="true"
-            android:visibility="invisible"
             android:padding="0dp"
             android:theme="@style/ProgressBarStyle" />
 
     <RelativeLayout
+            android:id="@+id/afterAnimationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
@@ -35,84 +64,117 @@
             android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
-        <TextView
-                android:id="@+id/welcomeSignup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/welcome"
-                android:textColor="@color/colorPrimary"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-        <TextView
-                android:id="@+id/sloganSignup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/welcomeSignup"
-                android:layout_marginTop="0dp"
-                android:text="@string/slogan"
-                android:textColor="@color/darkGray"
-                android:textSize="15sp" />
 
         <LinearLayout
+                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/signupButton"
-                android:layout_below="@+id/sloganSignup"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:gravity="top"
                 android:orientation="vertical">
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sign_up"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
             <EditText
-                    android:id="@+id/signupName"
+                android:id="@+id/signupFirstName"
+                android:drawableStart="@drawable/ic_profile"
+                android:drawablePadding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/tabTextColor"
+                android:textColor="@color/textGray"
+                android:textSize="15sp"
+                android:hint="@string/signupFirstName"
+                android:inputType="textPersonName"/>
+            <EditText
+                    android:id="@+id/signupPhone"
+                    android:layout_marginTop="25dp"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:drawablePadding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/tabTextColor"
+                    android:textColor="@color/textGray"
                     android:textSize="15sp"
-                    android:hint="@string/name"
-                    android:inputType="textPersonName"
-            />
-
+                    android:hint="@string/signupPhone"
+                    android:inputType="phone"/>
             <EditText
                     android:id="@+id/signupEmail"
+                    android:drawableLeft="@drawable/ic_mail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
                     android:layout_marginTop="25dp"
-                    android:textColorHint="@color/colorAccent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/tabTextColor"
+                    android:textColor="@color/textGray"
                     android:textSize="15sp"
-                    android:hint="@string/email"
-                    android:inputType="textEmailAddress"/>
+                    android:hint="Tu correo"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"/>
+
             <EditText
                     android:id="@+id/signupPassword"
+                    android:drawableStart="@drawable/ic_closed_lock"
+                    android:drawablePadding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/tabTextColor"
+                    android:textColor="@color/textGray"
                     android:textSize="15sp"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"/>
+                    android:hint="@string/signupPassword"
+                    android:inputType="textPassword"
+                    android:maxLines="1"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <ImageView
+                        android:id="@+id/lp1"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="0px"
+                        android:layout_weight="1"
+                        android:layout_height="5dp"
+                        android:src="@drawable/pc_none"/>
+                <ImageView
+                        android:id="@+id/lp2"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="0px"
+                        android:layout_weight="1"
+                        android:layout_height="5dp"
+                        android:background="@drawable/pc_none"/>
+                <ImageView
+                        android:id="@+id/lp3"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="0px"
+                        android:layout_weight="1"
+                        android:layout_height="5dp"
+                        android:background="@drawable/pc_none"/>
+                <ImageView
+                        android:id="@+id/lp4"
+                        android:layout_width="0px"
+                        android:layout_weight="1"
+                        android:layout_height="5dp"
+                        android:background="@drawable/pc_none"/>
+            </LinearLayout>
 
+            <EditText
+                    android:id="@+id/codigo"
+                    android:drawableEnd="@drawable/ic_infoq"
+                    android:layout_marginTop="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/tabTextColor"
+                    android:textColor="@color/textGray"
+                    android:textSize="15sp"
+                    android:hint="Código de invitación (opcional)"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"/>
+            <Button
+                    android:id="@+id/signupButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/button_blue_round"
+                    android:text="Crear cuenta"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
         </LinearLayout>
-
-        <Button
-                android:id="@+id/signupButton"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button_drawable"
-                android:text="@string/sign_up"
-                android:textAllCaps="false"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
-
-
     </RelativeLayout>
-
 </RelativeLayout>

@@ -39,9 +39,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-database:17.0.0'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.google.firebase:firebase-storage:17.0.0'
 
     implementation 'com.nex3z:notification-badge:0.1.0'
     implementation "de.halfbit:pinned-section-listview:1.0.0"
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.github.yesterselga:password-strength-checker-android:v1.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
+    implementation 'com.tapadoo.android:alerter:4.0.2'
+    implementation 'com.google.firebase:firebase-firestore:21.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,6 +1,7 @@
 package com.agrobit.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.agrobit.R
+import com.agrobit.account.ProfileActivity
+import kotlinx.android.synthetic.main.fragment_more.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +29,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class MoreFragment : Fragment() {
     // TODO: Rename and change types of parameters
+    private lateinit var vista:View
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
@@ -43,7 +47,12 @@ class MoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more, container, false)
+        vista= inflater.inflate(R.layout.fragment_more, container, false)
+        vista.user_rl.setOnClickListener { view ->
+            perfilClick(view)
+        }
+
+        return vista
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -53,6 +62,9 @@ class MoreFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+    }
+    fun perfilClick(view:View){
+        startActivity(Intent(this.context, ProfileActivity::class.java))
     }
 
     override fun onDetach() {

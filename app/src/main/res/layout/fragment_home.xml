@@ -43,6 +43,7 @@
                 />
             </RelativeLayout>
             <ScrollView
+                    android:scrollbarAlwaysDrawVerticalTrack="false"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 <LinearLayout
@@ -98,7 +99,7 @@
                                 <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:text="Empleados"
+                                        android:text="Socios"
                                         android:gravity="center|center_vertical"
                                         android:textSize="16dp"
                                         android:textStyle="bold"

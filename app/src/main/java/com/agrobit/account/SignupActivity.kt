@@ -6,18 +6,35 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import com.agrobit.R
+import com.agrobit.classes.User
+import com.agrobit.framework.shareddata.UserSharedPreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.ybs.passwordstrengthmeter.PasswordStrength
+import kotlinx.android.synthetic.main.activity_profile.*
 
-class SignupActivity : AppCompatActivity() {
+class SignupActivity : AppCompatActivity(),TextWatcher {
+    override fun afterTextChanged(p0: Editable?) {
+
+    }
+
+    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    }
+
+    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        updatePasswordStrengthView(p0.toString());
+    }
 
     private lateinit var signupName:EditText
+    private lateinit var signupPhone:EditText
     private lateinit var signupEmail:EditText
     private lateinit var signupPassword:EditText
     private lateinit var signupProgressBar:ProgressBar
@@ -35,6 +52,12 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var database:FirebaseDatabase
     private lateinit var auth:FirebaseAuth
 
+    private lateinit var name:String
+    private lateinit var email:String
+    private lateinit var password: String
+    private lateinit var phone:String
+    private lateinit var uuid:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
@@ -45,7 +68,8 @@ class SignupActivity : AppCompatActivity() {
     }
 
     fun initComponents(){
-        signupName=findViewById(R.id.signupName)
+        signupName=findViewById(R.id.signupFirstName)
+        signupPhone=findViewById(R.id.signupPhone)
         signupEmail=findViewById(R.id.signupEmail)
         signupPassword=findViewById(R.id.signupPassword)
         signupProgressBar=findViewById(R.id.signupProgressBar)
@@ -54,34 +78,27 @@ class SignupActivity : AppCompatActivity() {
         //Dialog
         dialog = Dialog(this)
 
-        //actionbar
-        val actionbar = supportActionBar
-        //set actionbar title
-        actionbar!!.title = "Registrarse"
-        //set back button
-        actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
+
 
         database= FirebaseDatabase.getInstance()
         auth= FirebaseAuth.getInstance()
-        dbReference=database.reference.child("User")
+        dbReference=database.reference.child("users")
     }
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
+
     fun initMethods(){
         signupButton.setOnClickListener(View.OnClickListener {
             createNewAccount()
         })
+        signupPassword.addTextChangedListener(this)
     }
 
     private fun createNewAccount(){
-        val name = signupName.text.toString()
-        val email=signupEmail.text.toString()
-        val password=signupPassword.text.toString()
+        name=signupName.text.toString()
+        phone=signupPhone.text.toString()
+        email=signupEmail.text.toString()
+        password=signupPassword.text.toString()
 
-        if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(password)){
+        if(!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(password)){
             signupProgressBar.visibility=View.VISIBLE
             auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this){
@@ -91,17 +108,20 @@ class SignupActivity : AppCompatActivity() {
                         val user:FirebaseUser?=auth.currentUser
                         verifyEmail(user)
 
-                        val userBD=dbReference.child(user?.uid.toString())
-                        userBD.child("Name").setValue(name)
+                        val us=User()
+                        us.uuid= user!!.uid
+                        us.name =name
+                        us.email=email
+                        us.phone=phone
+                        us.isVerified=false
+
+                        dbReference.child(user.uid).setValue(us)
+
+
                         succes()
                     }
                 }
         }else{
-            if(TextUtils.isEmpty(name))
-                signupName.setError("Requerido")
-            else
-                signupName.setError(null)
-
             if(TextUtils.isEmpty(email))
                 signupEmail.setError("Requerido")
             else
@@ -111,6 +131,17 @@ class SignupActivity : AppCompatActivity() {
                 signupPassword.setError("Requerido")
             else
                 signupPassword.setError(null)
+
+            if(TextUtils.isEmpty(name))
+                signupName.setError("Requerido")
+            else
+                signupName.setError(null)
+
+            if(TextUtils.isEmpty(phone))
+                signupPhone.setError("Requerido")
+            else
+                signupPhone.setError(null)
+
         }
     }
     private fun succes(){
@@ -141,17 +172,53 @@ class SignupActivity : AppCompatActivity() {
         sigInCorrectAccept.setOnClickListener(View.OnClickListener {
             dialog.dismiss()
             auth.signOut()
-            startActivity(Intent(this,LoginActivity::class.java))
+            //startActivity(Intent(this,LoginActivity::class.java))
             finish()
         })
         sigInCorrectClose.setOnClickListener(View.OnClickListener {
             dialog.dismiss()
             auth.signOut()
-            startActivity(Intent(this,LoginActivity::class.java))
+            //startActivity(Intent(this,LoginActivity::class.java))
             finish()
         })
         dialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         signupProgressBar.visibility=View.INVISIBLE
         dialog.show()
+    }
+    private fun updatePasswordStrengthView(password: String) {
+
+        val images=ArrayList<ImageView>()
+        images.add(findViewById<View>(R.id.lp1) as ImageView)
+        images.add(findViewById<View>(R.id.lp2) as ImageView)
+        images.add(findViewById<View>(R.id.lp3) as ImageView)
+        images.add(findViewById<View>(R.id.lp4) as ImageView)
+
+        for (x in images)
+            x.setImageDrawable(resources.getDrawable(R.drawable.pc_none))
+
+        //if (TextView.VISIBLE != strengthView.visibility)
+        //  return
+
+        if (password.equals("")) {
+            for (x in images)
+                x.setImageDrawable(resources.getDrawable(R.drawable.pc_none))
+            return
+        }
+
+        val str = PasswordStrength.calculateStrength(password)
+
+        if (str.getText(this).equals("Debil")) {
+            images[0].setImageDrawable(resources.getDrawable(R.drawable.pc_weak))
+        } else if (str.getText(this).equals("Media")) {
+            images[0].setImageDrawable(resources.getDrawable(R.drawable.pc_medium))
+            images[1].setImageDrawable(resources.getDrawable(R.drawable.pc_medium))
+        } else if (str.getText(this).equals("Fuerte")) {
+            images[0].setImageDrawable(resources.getDrawable(R.drawable.pc_strong))
+            images[1].setImageDrawable(resources.getDrawable(R.drawable.pc_strong))
+            images[2].setImageDrawable(resources.getDrawable(R.drawable.pc_strong))
+        } else {
+            for (x in images)
+                x.setImageDrawable(resources.getDrawable(R.drawable.pc_strong))
+        }
     }
 }

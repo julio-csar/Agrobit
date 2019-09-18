@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.StartActivity"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+
+    <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+        <ImageView
+                android:id="@+id/logo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_agrobit"/>
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_nombre"
+                android:layout_toEndOf="@id/logo"/>
+    </RelativeLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
+        <TextView
+                android:layout_marginTop="30dp"
+                android:textColor="@color/textGray"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                android:text="Agrobit,\nescaneo agrícola inteligente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/sbStart"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/button_blue_round"
+                android:text="Crear cuenta nueva con correo"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        <Button
+                android:elevation="0dp"
+                android:id="@+id/lbStart"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_blue_ratio"
+                android:text="¿Registrado? Inicia sesión"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlue"
+                android:textSize="16sp" />
+        <Button
+                android:elevation="0dp"
+                android:drawableStart="@drawable/ic_google"
+                android:paddingLeft="20dp"
+                android:paddingRight="40dp"
+                android:id="@+id/gbStart"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_blue_google"
+                android:text="Entrar con Google"
+                android:textAllCaps="false"
+                android:textColor="@color/textGray"
+                android:textSize="16sp" />
+    </LinearLayout>
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <pl.droidsonroids.gif.GifImageView
+                android:src="@drawable/animated_drone"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentBottom="true"
+        />
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitEnd"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/tree"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

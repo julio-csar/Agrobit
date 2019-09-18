@@ -1,32 +1,33 @@
 package com.agrobit.account
 
-import android.animation.Animator
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.text.TextUtils
 import android.view.View
-import android.view.View.VISIBLE
-import android.view.Window
-import android.view.WindowManager
 import android.widget.*
-import androidx.core.content.ContextCompat
 import com.agrobit.R
-import com.agrobit.activities.MainActivity
+import com.agrobit.activity.MainActivity
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.forgot_password.*
-import android.R.id.edit
-import android.content.SharedPreferences
-import com.agrobit.BuildConfig
+import android.app.ProgressDialog
+import android.content.Context
+import android.os.AsyncTask
+import android.provider.ContactsContract
+import android.widget.TextView
+import android.widget.ProgressBar
+import com.agrobit.classes.CProgressDialog
+import com.agrobit.classes.User
+import com.agrobit.framework.shareddata.UserSharedPreference
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_profile.*
+import pl.droidsonroids.gif.GifImageView
 
 
+class LoginActivity : AppCompatActivity(){
 
-class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginSignup: TextView
     private lateinit var loginButton:Button
@@ -42,6 +43,8 @@ class LoginActivity : AppCompatActivity() {
     lateinit var dialogPasswordEmail:EditText
     lateinit var dialogForgotPB:ProgressBar
 
+    lateinit var dialogProgress:Dialog
+
     //For the
     lateinit var dialog:Dialog
     lateinit var logInFailTitle: TextView
@@ -51,6 +54,10 @@ class LoginActivity : AppCompatActivity() {
     lateinit var logInFailAccept:Button
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var dbReference: DatabaseReference
+    private lateinit var database: FirebaseDatabase
+
+    private lateinit var pb: GifImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,49 +65,59 @@ class LoginActivity : AppCompatActivity() {
 
         initComponents()
         initMethods()
-
+/*
         when (getFirstTimeRun()) {
             0 -> loginWelcome.setText("Bienvenido")
             1 -> loginWelcome.setText("Bienvenido de nuevo")
             2 -> loginWelcome.setText("Bienvenido de nuevo")
-        }
+        }*/
     }
 
     private fun initComponents(){
-        loginSignup=findViewById(R.id.loginSignup)
+        //loginSignup=findViewById(R.id.loginSignup)
         loginButton=findViewById(R.id.loginButton)
         loginEmail=findViewById(R.id.loginEmail)
         loginPassword=findViewById(R.id.loginPassword)
         loginProgressBar=findViewById(R.id.loginProgressBar)
         loginRecover=findViewById(R.id.loginRecover)
-        loginWelcome=findViewById(R.id.loginWelcome)
+        pb=findViewById(R.id.pb)
+        //loginWelcome=findViewById(R.id.loginWelcome)
 
         dialog= Dialog(this)
         dialogPassword=Dialog(this)
+        dialogProgress= Dialog(this)
 
+        database= FirebaseDatabase.getInstance()
         auth= FirebaseAuth.getInstance()
+        dbReference=database.reference.child("users")
     }
     private fun initMethods(){
-        loginSignup.setOnClickListener(View.OnClickListener {
-            signup()
-        })
         loginButton.setOnClickListener(View.OnClickListener {
             login()
         })
         loginRecover.setOnClickListener(View.OnClickListener {
             recoverPassword()
         })
+        loginEmail.setOnFocusChangeListener { view,hasfocus ->
+            if(hasfocus){
+
+            }else{
+
+            }
+        }
     }
 
-    private fun signup(){
-        startActivity(Intent(this,SignupActivity::class.java))
-    }
     private fun login(){
         val email=loginEmail.text.toString()
         val pass=loginPassword.text.toString()
+        //VeryLongAsyncTask(this).execute()
+
+
 
         if(!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(pass)){
-            loginProgressBar.visibility=View.VISIBLE
+            showProgressDialog()
+            //pb.visibility=View.VISIBLE
+            //loginProgressBar.visibility=View.VISIBLE
 
             auth.signInWithEmailAndPassword(email,pass)
                 .addOnCompleteListener(this){
@@ -109,17 +126,23 @@ class LoginActivity : AppCompatActivity() {
                         val user = auth.getCurrentUser()
                         if (user != null) {
                             if (!user.isEmailVerified()) {
-                                loginProgressBar.visibility=View.GONE
+                                //loginProgressBar.visibility=View.GONE
+                                deleteProgressDialog()
+                                //pb.visibility=View.INVISIBLE
                                 showFailPopup()
                             } else {
-                                loginProgressBar.visibility=View.GONE
+                                //pb.visibility=View.INVISIBLE
+                                deleteProgressDialog()
+                                //loginProgressBar.visibility=View.GONE
                                 success()
                             }
                         }
                     }else
                     {
                         Toast.makeText(this,"Error de autentificación",Toast.LENGTH_LONG).show()
-                        loginProgressBar.visibility=View.GONE
+                        //pb.visibility=View.INVISIBLE
+                        deleteProgressDialog()
+                        //loginProgressBar.visibility=View.GONE
                     }
                 }
         }else{
@@ -133,6 +156,17 @@ class LoginActivity : AppCompatActivity() {
             else
                 loginPassword.setError(null)
         }
+    }
+
+    fun showProgressDialog(){
+        dialogProgress.setContentView(R.layout.progress_dialog)
+        dialogProgress.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogProgress.setCanceledOnTouchOutside(false)
+        dialogProgress.setCancelable(false)
+        dialogProgress.show()
+    }
+    fun deleteProgressDialog(){
+        dialogProgress.dismiss()
     }
 
     fun showFailPopup() {
@@ -181,8 +215,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun success(){
-        startActivity(Intent(this,MainActivity::class.java))
-        finish()
+        dbReference!!.child(auth.currentUser?.uid.toString()).
+            addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val user:User= dataSnapshot.getValue(User::class.java)!!
+                UserSharedPreference(applicationContext).saveOrUpdateUser(user)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+            }
+        })
+        val newIntent = Intent(this@LoginActivity, MainActivity::class.java)
+        finishAffinity()
+        startActivity(newIntent)
+        this.finish()
     }
     private fun error(){
 
@@ -197,11 +245,6 @@ class LoginActivity : AppCompatActivity() {
         //Config
         dialogPassword.setCanceledOnTouchOutside(true)
         dialogPassword.setCancelable(true)
-        //Set text
-        //logInFailAccept.setText("Reenviar correo")
-        //logInFailTitle.setText("¡Inicio de sesión fallido!")
-        //logInFailDescription.setText("No se ha confirmado el correo electrónico. Por favor verifícalo para poder iniciar sesión.")
-
         dialogPasswordClose.setOnClickListener(View.OnClickListener {
             auth.signOut()
             dialogPassword.dismiss()
@@ -237,16 +280,35 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-    private fun getFirstTimeRun(): Int {
-        val sp = getSharedPreferences("MYAPP", 0)
-        val result: Int
-        val currentVersionCode = BuildConfig.VERSION_CODE
-        val lastVersionCode = sp.getInt("FIRSTTIMERUN", -1)
-        if (lastVersionCode == -1)
-            result = 0
-        else
-            result = if (lastVersionCode == currentVersionCode) 1 else 2
-        sp.edit().putInt("FIRSTTIMERUN", currentVersionCode).apply()
-        return result
+
+    internal inner class VeryLongAsyncTask(ctx: Context) : AsyncTask<Void, Void, Void>() {
+        private val progressDialog: ProgressDialog
+
+        init {
+            progressDialog = CProgressDialog.ctor(ctx)
+        }
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+
+            progressDialog.show()
+        }
+
+        override fun doInBackground(vararg params: Void): Void? {
+            // sleep for 5 seconds
+            try {
+                Thread.sleep(5000)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            return null
+        }
+
+        override fun onPostExecute(result: Void) {
+            super.onPostExecute(result)
+
+            progressDialog.hide()
+        }
     }
 }
