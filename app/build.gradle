@@ -49,6 +49,8 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
     implementation 'com.tapadoo.android:alerter:4.0.2'
     implementation 'com.google.firebase:firebase-firestore:21.1.1'
+
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.3.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

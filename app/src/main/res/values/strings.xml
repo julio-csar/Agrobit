@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Agrobit</string>
 
+    <string name="mapbox_access_token">pk.eyJ1IjoianVsaW8tY2VzYXIiLCJhIjoiY2pqOHA1Zzl2MG5xbTNxcDJhNnlxejN6dCJ9.3_5p6-RSpwkuHDJ67N4Zgw</string>
+
+
     <string name="welcome_back">Bienvenido</string>
     <string name="welcome">Bienvenido</string>
     <string name="slogan">Escaneo agrícola inteligente</string>

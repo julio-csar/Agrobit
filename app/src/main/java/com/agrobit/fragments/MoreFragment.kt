@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 import com.agrobit.R
 import com.agrobit.account.ProfileActivity
+import com.agrobit.framework.shareddata.UserSharedPreference
 import kotlinx.android.synthetic.main.fragment_more.view.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,6 +35,7 @@ class MoreFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private lateinit var email_more:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +54,8 @@ class MoreFragment : Fragment() {
         vista.user_rl.setOnClickListener { view ->
             perfilClick(view)
         }
+        email_more=vista.email_more
+        email_more.setText(UserSharedPreference(this.context).user.email)
 
         return vista
     }

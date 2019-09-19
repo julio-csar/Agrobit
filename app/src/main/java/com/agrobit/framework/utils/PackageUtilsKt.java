@@ -1,5 +1,6 @@
 package com.agrobit.framework.utils;
 
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Resources;
@@ -11,6 +12,13 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Base64;
+import com.agrobit.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.tapadoo.alerter.Alerter;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -225,5 +233,31 @@ public final class PackageUtilsKt {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static void createLoadingAlerter(Activity activity,String title,String text){
+        Alerter.create(activity)
+            .setTitle(title)
+                .setText(text)
+                .enableProgress(true)
+                .setEnterAnimation(R.anim.abc_slide_in_top)
+                .setExitAnimation(R.anim.alerter_exit)
+                .setProgressColorRes(R.color.darkGreen)
+                .setBackgroundColorRes(R.color.colorBlue)
+                .show();
+    }
+    public static void createOkAlerter(Activity activity,String title,String text){
+        Alerter.create(activity)
+                .setTitle(title)
+                .setText(text)
+                .setIcon(R.drawable.ic_complete)
+                .setEnterAnimation(R.anim.abc_slide_in_top)
+                .setExitAnimation(R.anim.alerter_exit)
+                .setIconColorFilter(0) // Optional - Removes white tint
+                .setBackgroundColorRes(R.color.colorBlue)
+                .show();
+    }
+    public static void removeAlerter(Activity activity){
+        Alerter.hide();
     }
 }

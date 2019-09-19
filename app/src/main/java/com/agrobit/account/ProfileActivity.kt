@@ -3,6 +3,7 @@ package com.agrobit.account
 import android.Manifest
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
+import android.app.DownloadManager
 import android.app.PendingIntent.getActivity
 import android.content.ContentResolver
 import android.content.Intent
@@ -235,24 +236,21 @@ class ProfileActivity : AppCompatActivity() {
         //if(!user.imageUrl.equals(""))
           //  loadImageFromUrl(user.imageUrl,pr_image)
 
+
+
         if(!signUpValues.profileB64.equals("")){
             var imageBytes = Base64.decode(signUpValues.profileB64, Base64.DEFAULT);
             var decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size);
             pr_image.setImageBitmap(decodedImage);
-        }else if(!user.imageUrl.equals("")) {
-            //var image = PackageUtilsKt.getBitmapFromURL(user.imageUrl)
-            //var bitmapOptimized = PackageUtilsKt.bitmapOptimized(image);
-            //pr_image.setImageBitmap(getScaledBitmap(bitmapOptimized));
-            //signUpValues.setProfilePic(PackageUtilsKt.bitmapToBase64(bitmapOptimized));
+        }else if(!user.base64.equals("")) {
+            var imageBytes=Base64.decode(user.base64,Base64.DEFAULT)
+            var decodedImage=BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+            pr_image.setImageBitmap(decodedImage)
+
         }
 
     }
-    fun loadImageFromUrl(url:String,imageView:ImageView){
-        Picasso.with(this).load(url).placeholder(R.drawable.ic_user)
-            .error(R.drawable.ic_user)
-            .into(imageView)
 
-    }
     fun EnableSaveItemButton() {
         val b=name.text.toString()!=nameS
         val b1=sname.text.toString()!=snameS
@@ -328,7 +326,7 @@ class ProfileActivity : AppCompatActivity() {
             pickedImgUri=data.data
             //pr_image.setImageURI(pickedImgUri)
 
-            updateUserImage(pickedImgUri)
+            //updateUserImage(pickedImgUri)
             saveImgage(pickedImgUri)
 
         }else{
@@ -385,6 +383,9 @@ fun updateUserImage(image:Uri){
                             //Intrinsics.throwUninitializedPropertyAccessException(signvalues);
                         }
                         signUpValues.setProfilePic(PackageUtilsKt.bitmapToBase64(bitmapOptimized));
+                        var usr=userSharedPreference.user
+                        usr.base64=PackageUtilsKt.bitmapToBase64(bitmapOptimized)
+                        userSharedPreference.saveOrUpdateUser(usr)
                     }
                 }
                 return;
