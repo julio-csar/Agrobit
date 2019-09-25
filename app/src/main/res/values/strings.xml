@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Agrobit</string>
 
-    <string name="mapbox_access_token">pk.eyJ1IjoianVsaW8tY2VzYXIiLCJhIjoiY2pqOHA1Zzl2MG5xbTNxcDJhNnlxejN6dCJ9.3_5p6-RSpwkuHDJ67N4Zgw</string>
+    <string name="mapbox_access_token">
+        pk.eyJ1IjoianVsaW8tY2VzYXIiLCJhIjoiY2pqOHA1Zzl2MG5xbTNxcDJhNnlxejN6dCJ9.3_5p6-RSpwkuHDJ67N4Zgw
+    </string>
+    <string name="google_maps_key">
+        AIzaSyA-9bHYKsJ3eRTpmxBGDfO50PFSAtNroHU
+    </string>
 
 
     <string name="welcome_back">Bienvenido</string>

@@ -1,5 +1,6 @@
 package com.agrobit.fragments
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -8,7 +9,9 @@ import androidx.fragment.app.Fragment
 import com.agrobit.R
 import android.widget.*
 import androidx.viewpager.widget.ViewPager
+import com.agrobit.activity.NewOrchardActivity
 import com.agrobit.adapters.ViewPagerAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 
 
@@ -66,6 +69,13 @@ class OrchardsFragment : Fragment()
 
         viewPager.adapter=adapter
         tabLayout.setupWithViewPager(viewPager)
+
+        vista.findViewById<FloatingActionButton>(R.id.new_orchard).setOnClickListener(object:View.OnClickListener{
+            override fun onClick(p0: View?) {
+                startActivity(Intent(vista.context, NewOrchardActivity::class.java))
+            }
+
+        })
 
         return vista
     }

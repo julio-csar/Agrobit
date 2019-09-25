@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".activity.NewOrchardActivity"
+        android:background="@color/colorWhite">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <RelativeLayout
+
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/header_part"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+            <ImageButton
+                    android:background="@color/colorWhite"
+                    android:id="@+id/back"
+                    android:layout_alignTop="@id/title_profile"
+                    android:layout_alignBottom="@id/title_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_left_arrow"/>
+            <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_toEndOf="@id/back"
+                    android:text="Agregar huerta"
+                    android:textColor="@color/textGray"
+                    android:textSize="17sp"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:id="@+id/title_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"/>
+
+        </RelativeLayout>
+        <fragment
+                android:layout_below="@id/header_part"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+        </fragment>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/next"
+                android:src="@drawable/ic_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/clean"
+                android:src="@drawable/ic_clean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_above="@id/next"
+                android:layout_alignParentEnd="true"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/remove"
+                android:src="@drawable/ic_undo_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginRight="16dp"
+                android:layout_above="@id/clean"
+                android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+
+    <include layout="@layout/bottom_design"/>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
