@@ -28,7 +28,7 @@
 
 
         <activity android:name=".activity.NewOrchardActivity"
-                android:theme="@style/WhiteCursorTheme">
+                android:theme="@style/WhiteFloating">
         </activity>
         <activity
                 android:name=".activity.StartActivity"
@@ -38,7 +38,8 @@
                 android:name=".account.AccountActivity"
                 android:theme="@style/WhiteCursorTheme">
         </activity>
-        <activity android:name=".activity.OrchardActivity">
+        <activity android:name=".activity.OrchardActivity"
+                android:theme="@style/WhiteCursorTheme">
         </activity>
         <activity
                 android:name=".account.ProfileActivity"

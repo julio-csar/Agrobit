@@ -17,7 +17,7 @@ import com.agrobit.activity.OrchardActivity
 import com.agrobit.classes.HeaderPage
 
 
-public class OrchardTotalAdapter(mContext:Context, data:List<Item>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+public class AnalisisDashboardAdapter(mContext:Context, data:List<Item>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     val mContext: Context=mContext
   val data:List<Item> = data
 

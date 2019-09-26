@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.*
 import java.util.*
 import androidx.core.app.ActivityCompat
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.Point
 import androidx.core.content.ContextCompat
 import android.location.Location
@@ -124,6 +125,13 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
 
         })
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        bottomSheet.findViewById<ImageView>(R.id.back_bd).setOnClickListener(object: View.OnClickListener{
+            override fun onClick(p0: View?) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+
+        })
 
         findViewById<FloatingActionButton>(R.id.next).setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
@@ -419,4 +427,5 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
             )
         }
     }
+
 }

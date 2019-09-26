@@ -47,6 +47,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
+    <style name="WhiteFloating" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
+        <item name="colorAccent">@color/colorWhite</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
     <style name="cursorColor">
         <item name="android:textCursorDrawable">@drawable/cursor</item>
     </style>
