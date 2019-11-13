@@ -3,9 +3,9 @@
 
     <item android:drawable="@color/colorWhite" />
     <item
-        android:drawable="@drawable/ic_agrobit_nombre"
+        android:drawable="@drawable/ic_agrobit"
         android:gravity="center"
-        android:height="412px"
-        android:width="685px"
+            android:width="100dp"
+            android:height="100dp"
     />
 </layer-list>

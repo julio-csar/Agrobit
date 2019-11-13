@@ -49,8 +49,7 @@
                     android:textSize="25dp"
                     android:text="@string/message_sigin_fail_title"/>
                 <ImageView
-                    android:id="@+id/logInFailImage"
-                    android:layout_width="match_parent"
+                        android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"

@@ -34,8 +34,8 @@ public class OrchardAtencionAdapter(mContext:Context, data:List<Item>): Recycler
       var viewHolder:OrchardViewHolder=holder as OrchardViewHolder
       viewHolder.setIsRecyclable(false)
       var item:Orchard=data.get(position).item as Orchard
-      viewHolder.itemImage.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation)
-      viewHolder.container.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation)
+      //viewHolder.itemImage.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation)
+      //viewHolder.container.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation)
 
       viewHolder.itemImage.setImageDrawable(ContextCompat.getDrawable(mContext,IMAGE_TYPE[item.type]!!))
       viewHolder.itemTitle.setText(item.name)
@@ -64,7 +64,7 @@ public class OrchardAtencionAdapter(mContext:Context, data:List<Item>): Recycler
     }
   }
     fun getDate(valor:String): String {
-        if(valor.equals("1")){
+        if(valor.length==1){
             return "Nunca"
         }
         else

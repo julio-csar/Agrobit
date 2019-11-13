@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.FindPartnerActivity"
+        android:background="@color/white">
+    <RelativeLayout
+
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/header_part"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        <ImageButton
+                android:background="@color/colorWhite"
+                android:id="@+id/back"
+                android:layout_alignTop="@id/title_profile"
+                android:layout_alignBottom="@id/title_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_left_arrow"/>
+        <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@id/back"
+                android:text="Agregar socio"
+                android:textColor="@color/textGray"
+                android:textSize="17sp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:id="@+id/title_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"/>
+
+    </RelativeLayout>
+    <EditText
+            android:id="@+id/search_partner_et"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:drawableRight="@drawable/ic_search_blue"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/header_part"
+            android:textAppearance="@style/AppTabTextAppearance"
+            android:background="@drawable/button_blue_gray"
+        android:hint="Buscar por nombre..."
+            android:padding="15dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:background="@color/colorWhite"
+            android:layout_below="@id/search_partner_et"
+            android:id="@+id/totalpartner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

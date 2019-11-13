@@ -58,6 +58,7 @@ class LoginActivity : AppCompatActivity(){
     private lateinit var database: FirebaseDatabase
 
     private lateinit var pb: GifImageView
+    private lateinit var rlProgressBar:RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,23 +66,18 @@ class LoginActivity : AppCompatActivity(){
 
         initComponents()
         initMethods()
-/*
-        when (getFirstTimeRun()) {
-            0 -> loginWelcome.setText("Bienvenido")
-            1 -> loginWelcome.setText("Bienvenido de nuevo")
-            2 -> loginWelcome.setText("Bienvenido de nuevo")
-        }*/
+
     }
 
     private fun initComponents(){
-        //loginSignup=findViewById(R.id.loginSignup)
         loginButton=findViewById(R.id.loginButton)
         loginEmail=findViewById(R.id.loginEmail)
         loginPassword=findViewById(R.id.loginPassword)
         loginProgressBar=findViewById(R.id.loginProgressBar)
         loginRecover=findViewById(R.id.loginRecover)
         pb=findViewById(R.id.pb)
-        //loginWelcome=findViewById(R.id.loginWelcome)
+
+        rlProgressBar=findViewById(R.id.rlProgressBar)
 
         dialog= Dialog(this)
         dialogPassword=Dialog(this)
@@ -110,14 +106,11 @@ class LoginActivity : AppCompatActivity(){
     private fun login(){
         val email=loginEmail.text.toString()
         val pass=loginPassword.text.toString()
-        //VeryLongAsyncTask(this).execute()
 
 
 
         if(!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(pass)){
             showProgressDialog()
-            //pb.visibility=View.VISIBLE
-            //loginProgressBar.visibility=View.VISIBLE
 
             auth.signInWithEmailAndPassword(email,pass)
                 .addOnCompleteListener(this){
@@ -126,23 +119,17 @@ class LoginActivity : AppCompatActivity(){
                         val user = auth.getCurrentUser()
                         if (user != null) {
                             if (!user.isEmailVerified()) {
-                                //loginProgressBar.visibility=View.GONE
                                 deleteProgressDialog()
-                                //pb.visibility=View.INVISIBLE
                                 showFailPopup()
                             } else {
-                                //pb.visibility=View.INVISIBLE
                                 deleteProgressDialog()
-                                //loginProgressBar.visibility=View.GONE
                                 success()
                             }
                         }
                     }else
                     {
                         Toast.makeText(this,"Error de autentificación",Toast.LENGTH_LONG).show()
-                        //pb.visibility=View.INVISIBLE
                         deleteProgressDialog()
-                        //loginProgressBar.visibility=View.GONE
                     }
                 }
         }else{
@@ -159,14 +146,10 @@ class LoginActivity : AppCompatActivity(){
     }
 
     fun showProgressDialog(){
-        dialogProgress.setContentView(R.layout.progress_dialog)
-        dialogProgress.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialogProgress.setCanceledOnTouchOutside(false)
-        dialogProgress.setCancelable(false)
-        dialogProgress.show()
+        rlProgressBar.visibility=View.VISIBLE
     }
     fun deleteProgressDialog(){
-        dialogProgress.dismiss()
+        rlProgressBar.visibility=View.GONE
     }
 
     fun showFailPopup() {
@@ -199,8 +182,6 @@ class LoginActivity : AppCompatActivity(){
     }
 
     private fun sendEmailVerification() {
-        // Send verification email
-        // [START send_email_verification]
         val user = auth.getCurrentUser()
         user?.sendEmailVerification()
             ?.addOnCompleteListener(this){
@@ -211,7 +192,6 @@ class LoginActivity : AppCompatActivity(){
                     Toast.makeText(this,"Error al enviar correo",Toast.LENGTH_LONG).show()
                 }
             }
-        // [END send_email_verification]
     }
 
     private fun success(){

@@ -80,8 +80,12 @@
                 android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
-
     <include layout="@layout/bottom_design"/>
+    <include
+            android:id="@+id/rlProgressBar"
+            android:visibility="gone"
+            layout="@layout/loading_screen"
+            />
 
 
 

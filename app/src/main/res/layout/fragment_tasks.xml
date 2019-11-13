@@ -12,7 +12,6 @@
         <RelativeLayout
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/header_tasks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
@@ -23,7 +22,6 @@
                     android:fontFamily="sans-serif-light"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:id="@+id/title_o"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -36,7 +34,6 @@
                     android:layout_alignParentEnd="true"/>
 
             <ImageView
-                    android:id="@+id/refresh_tasks"
                     android:src="@drawable/ic_synchronize"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"

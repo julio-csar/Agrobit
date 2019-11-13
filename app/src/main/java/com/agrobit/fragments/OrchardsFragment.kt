@@ -11,8 +11,18 @@ import android.widget.*
 import androidx.viewpager.widget.ViewPager
 import com.agrobit.activity.NewOrchardActivity
 import com.agrobit.adapters.ViewPagerAdapter
+import com.agrobit.classes.Orchard
+import com.agrobit.framework.shareddata.UserSharedPreference
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.database.*
+import android.content.Context
+import android.os.Environment
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +55,13 @@ class OrchardsFragment : Fragment()
         private lateinit var vista:View
         private lateinit var viewPager:ViewPager
 
+        private lateinit var refresh:ImageView
+        private lateinit var rlProgressBar:RelativeLayout
+
+        private lateinit var dbReference: DatabaseReference
+        private lateinit var dbrUserO:DatabaseReference
+        private lateinit var database: FirebaseDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -62,13 +79,12 @@ class OrchardsFragment : Fragment()
         tabLayout=vista.findViewById(R.id.tabs_o)
         viewPager=vista.findViewById(R.id.viewPagerOrchardsF)
 
-        var adapter:ViewPagerAdapter= ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(OrchardsTotal(),"Todas")
-        adapter.addFragment(OrchardsAtencion(),"Atención")
-        adapter.addFragment(OrchardsUltimas(),"Últimas")
 
-        viewPager.adapter=adapter
-        tabLayout.setupWithViewPager(viewPager)
+        configureAdapter()
+
+
+
+        rlProgressBar=vista.findViewById(R.id.rlProgressBar)
 
         vista.findViewById<FloatingActionButton>(R.id.new_orchard).setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
@@ -76,10 +92,127 @@ class OrchardsFragment : Fragment()
             }
 
         })
+        vista.findViewById<ImageView>(R.id.refresh_button).setOnClickListener(object :View.OnClickListener{
+            override fun onClick(p0: View?) {
+                getList()
+            }
+
+        })
 
         return vista
     }
 
+        fun configureAdapter(){
+            val pos=tabLayout.selectedTabPosition
+
+            var adapter:ViewPagerAdapter= ViewPagerAdapter(childFragmentManager)
+            adapter.addFragment(OrchardsTotal(),"Todas")
+            adapter.addFragment(OrchardsAtencion(),"Atención")
+            adapter.addFragment(OrchardsUltimas(),"Últimas")
+
+            viewPager.adapter=adapter
+            tabLayout.setupWithViewPager(viewPager)
+
+            tabLayout.getTabAt(pos)?.select()
+        }
+        fun getList(){
+            showProgressDialog()
+
+            database= FirebaseDatabase.getInstance()
+
+            dbReference=database.reference.child("orchards")
+            dbrUserO=database.reference.child("user_orchards").child(UserSharedPreference(this.context).user.uuid)
+
+            val userListener = object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    var l:MutableMap<String, String> = java.util.HashMap()
+                    for (a in dataSnapshot.getChildren()) {
+                        l.put(a.key.toString(), a.value.toString())
+                    }
+                    downloadOrchards(l)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+
+                }
+            }
+            dbrUserO.addValueEventListener(userListener)
+            deleteProgressDialog()
+        }
+
+        fun downloadOrchards(hm:MutableMap<String,String>){
+            dbReference.addValueEventListener( object:ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    val data:MutableList<Orchard> = ArrayList<Orchard>()
+                    for(x in p0.children){
+                        val a = x.getValue(Orchard::class.java)
+                        if(hm.keys.contains(a?.id)){
+                            a?.let { data.add(it) }
+                        }
+                    }
+                    fillJSON(data)
+                }
+                override fun onCancelled(p0: DatabaseError) {
+
+                }
+            });
+        }
+        fun fillJSON(data:MutableList<Orchard>){
+            var json=JSONArray()
+            for(x in data){
+                json.put(addOrchard(x))
+            }
+            var array=JSONObject()
+            array.put("orchards",json)
+            writeToFile(array.toString())
+        }
+
+        private fun addOrchard(orchard: Orchard):JSONObject{
+            return JSONObject()
+                .put("id",orchard.id)
+                .put("name",orchard.name)
+                .put("size",orchard.size)
+                .put("base64",orchard.base64)
+                .put("type",orchard.type)
+                .put("status",orchard.status)
+                .put("crea",orchard.crea)
+                .put("lasta",orchard.lasta)
+                .put("lastproblems",orchard.lastproblems)
+                .put("tareasp",orchard.tareasp)
+                .put("tareaspro",orchard.tareaspro)
+                .put("tareasok",orchard.tareasok)
+                .put("cords",addCoord(orchard))
+        }
+        private fun addCoord(orchard: Orchard):JSONObject{
+            var js=JSONObject()
+            for(x in orchard.cords){
+                js.put(x.key.toString(),x.value)
+            }
+            return js
+        }
+
+        fun writeToFile(data: String) {
+            try {
+                val outputStreamWriter =
+                    OutputStreamWriter(context?.openFileOutput("orchards.json", Context.MODE_PRIVATE))
+                outputStreamWriter.write(data)
+                outputStreamWriter.close()
+                configureAdapter()
+            } catch (e: IOException) {
+                //Log.e("Exception", "File write failed: " + e.toString())
+            }
+
+        }
+
+
+
+
+        fun showProgressDialog(){
+            rlProgressBar.visibility=View.VISIBLE
+        }
+        fun deleteProgressDialog(){
+            rlProgressBar.visibility=View.GONE
+        }
 
 
     interface OnFragmentInteractionListener {
@@ -106,4 +239,11 @@ class OrchardsFragment : Fragment()
                 }
             }
     }
+        class ItemUO(
+            var uuid:String="",
+            var orchards: MutableMap<String,String> = HashMap()){
+
+
+
+        }
 }

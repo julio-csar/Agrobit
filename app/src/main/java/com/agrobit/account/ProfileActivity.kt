@@ -11,6 +11,8 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -52,13 +54,20 @@ import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import com.tapadoo.alerter.Alerter
-import io.grpc.Context
+import android.content.Context
+import android.content.res.Resources
+import android.os.Handler
 import java.io.File
 import java.io.IOException
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.HashMap
 import android.util.Base64
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.os.HandlerCompat.postDelayed
+import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+import br.com.simplepass.loadingbutton.customViews.ProgressButton
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -70,7 +79,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var name:EditText
     private lateinit var sname:EditText
     private lateinit var fname:EditText
-    private lateinit var button_save:Button
+    private lateinit var button_save: CircularProgressButton
     private lateinit var backB:ImageButton
 
     private lateinit var nameS:String
@@ -86,6 +95,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private val PReqCode:Int=1
     private lateinit var pickedImgUri:Uri
+
+    private  var updated=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,13 +135,15 @@ class ProfileActivity : AppCompatActivity() {
             }
 
         })
-        button_save.setOnClickListener(object:View.OnClickListener{
+        button_save.run { setOnClickListener { morphDoneAndRevert(this@ProfileActivity) }}
+        /*button_save.setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
                 if(button_save.isEnabled)
+                    //button_save.startAnimation()
                     saveUserData()
             }
 
-        })
+        })*/
         name.addTextChangedListener(object:TextWatcher{
             override fun afterTextChanged(p0: Editable?) {
                 EnableSaveItemButton()
@@ -178,6 +191,32 @@ class ProfileActivity : AppCompatActivity() {
 
         })
     }
+
+
+    private fun ProgressButton.morphDoneAndRevert(
+        context: Context,
+        fillColor: Int = defaultColor(context),
+        bitmap: Bitmap = defaultDoneImage(context.resources),
+        doneTime: Long = 3000,
+        revertTime: Long = 4000
+    ) {
+        progressType = ProgressType.INDETERMINATE
+        startAnimation()
+        Handler().run {
+            postDelayed({
+                saveUserData()
+                doneLoadingAnimation(fillColor, bitmap)
+            }, doneTime)
+            postDelayed({
+                btn_save.revertAnimation()
+                EnableSaveItemButton()
+            }, revertTime)
+        }
+    }
+
+    private fun defaultColor(context: Context) = ContextCompat.getColor(context, R.color.darkGreen)
+    private fun defaultDoneImage(resources: Resources) =getResources().getDrawable(R.drawable.ic_check).toBitmap()
+
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -267,14 +306,17 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
     fun saveUserData(){
-
+/*
         Alerter.create(this@ProfileActivity)
             .setTitle("Actualizando")
             .setText("¡Ya casi teminamos!")
             .enableProgress(true)
             .setProgressColorRes(R.color.darkGreen)
             .setBackgroundColorRes(R.color.colorBlue)
-            .show()
+            .show()*/
+
+
+
 
         nameS=name.text.toString()
         snameS=sname.text.toString()
@@ -287,6 +329,17 @@ class ProfileActivity : AppCompatActivity() {
 
             userSharedPreference.saveOrUpdateUser(user)
 
+
+
+
+            //Thread.sleep(5000)
+            //var myDrawable: Drawable = getResources().getDrawable(R.drawable.ic_check);
+            //Thread.sleep(5000)
+            //btn_save.doneLoadingAnimation(ContextCompat.getColor(applicationContext, R.color.darkGreen), myDrawable.toBitmap())
+            //btn_save.revertAnimation {
+                //btn_save.text = "Some new text"
+            //}
+            /*
             Alerter.hide()
             Alerter.create(this@ProfileActivity)
                 .setTitle("¡Está hecho!")
@@ -298,8 +351,8 @@ class ProfileActivity : AppCompatActivity() {
                 .setBackgroundColorRes(R.color.colorBlue)
                 .show()
 
-
-            EnableSaveItemButton()
+*/
+            //EnableSaveItemButton()
         }
         else{
             if(TextUtils.isEmpty(nameS))

@@ -35,7 +35,6 @@
                     android:text="Agosto"
             />
             <LinearLayout
-                    android:id="@+id/lay_res"
                     android:layout_below="@id/mes"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
@@ -49,7 +48,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     <ImageView
-                            android:id="@+id/imgp"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:src="@drawable/ic_pending"/>
@@ -61,7 +59,7 @@
                             android:textSize="24dp"
                             android:textStyle="bold"
                             android:fontFamily="sans-serif-light"
-                            android:text="6"/>
+                            android:text="0"/>
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -84,19 +82,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     <ImageView
-                            android:id="@+id/imgpr"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:src="@drawable/ic_progress"/>
                     <TextView
-                            android:id="@+id/countpro"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:textSize="24dp"
                             android:textStyle="bold"
                             android:fontFamily="sans-serif-light"
-                            android:text="23"/>
+                            android:text="0"/>
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -118,7 +114,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     <ImageView
-                            android:id="@+id/imgc"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:src="@drawable/ic_complete"/>
@@ -129,7 +124,7 @@
                             android:textSize="24dp"
                             android:textStyle="bold"
                             android:fontFamily="sans-serif-light"
-                            android:text="210"/>
+                            android:text="0"/>
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

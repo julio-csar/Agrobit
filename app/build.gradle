@@ -11,8 +11,8 @@ android {
         applicationId "com.agrobit"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -41,6 +41,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:17.0.0'
     implementation 'com.google.firebase:firebase-storage:17.0.0'
 
+    //UI
+    // FirebaseUI for Firebase Realtime Database
+    implementation 'com.firebaseui:firebase-ui-database:6.0.2'
+    // FirebaseUI for Cloud Firestore
+    implementation 'com.firebaseui:firebase-ui-firestore:6.0.2'
+    // FirebaseUI for Firebase Auth
+    implementation 'com.firebaseui:firebase-ui-auth:6.0.2'
+    // FirebaseUI for Cloud Storage
+    implementation 'com.firebaseui:firebase-ui-storage:6.0.2'
+
     implementation 'com.nex3z:notification-badge:0.1.0'
     implementation "de.halfbit:pinned-section-listview:1.0.0"
 
@@ -53,6 +63,14 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation "com.google.android.gms:play-services-location:15.0.1"
 
+    //Loading button
+    implementation 'br.com.simplepass:loading-button-android:2.2.0'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+}
+androidExtensions{
+    experimental = true
 }
 
 apply plugin: 'com.google.gms.google-services'

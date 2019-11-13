@@ -29,8 +29,8 @@ public class PartnerAdapter(mContext:Context, data:List<Partner>): RecyclerView.
       var viewHolder:PartnerViewHolder=holder as PartnerViewHolder
       viewHolder.setIsRecyclable(false)
       var item:Partner=data.get(position)
-      viewHolder.imageContainer.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation)
-      viewHolder.container.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation)
+      //viewHolder.imageContainer.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation)
+      //viewHolder.container.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation)
 
       if(item.image!="")
           loadImageFromUrl(item.image,viewHolder.itemImage)

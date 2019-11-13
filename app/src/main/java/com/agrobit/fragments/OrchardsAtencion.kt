@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -59,12 +60,21 @@ class OrchardsAtencion : Fragment() {
         orchardRecyclerView.setHasFixedSize(true)
 
         val orchardsL= Orchard.getorchardsFromFile(this.context,"orchards.json","orchards")
+
         val itemList=ArrayList<Item>()
+
+
         for (x in orchardsL){
             if(x.status<4)
                 itemList.add(Item(2,x))
         }
         itemList.add(0,Item(1, HeaderPage("Requieren atención", itemList.size)))
+
+        if(itemList.size>1){
+            vista.findViewById<ImageView>(R.id.bg_orchards_att).visibility=View.GONE
+        }else{
+            vista.findViewById<ImageView>(R.id.bg_orchards_att).visibility=View.VISIBLE
+        }
 
         val adapter = this.context?.let { OrchardAtencionAdapter(it, itemList) }
         orchardRecyclerView.adapter=adapter

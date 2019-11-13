@@ -14,4 +14,12 @@
                     android:layout_height="wrap_content">
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
+    <ImageView
+        android:id="@+id/bg_orchards_total"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="150dp"
+            android:src="@drawable/ic_total_orchards"/>
+
 </FrameLayout>

@@ -23,7 +23,6 @@
                 android:fontFamily="sans-serif-light"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:id="@+id/title_par"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -36,7 +35,6 @@
                 android:layout_alignParentEnd="true"/>
 
         <ImageView
-                android:id="@+id/refresh_partner"
                 android:src="@drawable/ic_synchronize"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -50,5 +48,20 @@
                 android:layout_height="wrap_content">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="150dp"
+            android:src="@drawable/ic_farmer"
+
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/new_partner"
+            android:src="@drawable/ic_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp" />
 
 </FrameLayout>

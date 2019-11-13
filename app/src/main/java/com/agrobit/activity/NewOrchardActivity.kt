@@ -1,9 +1,9 @@
 package com.agrobit.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.agrobit.R
-import android.widget.Toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -12,11 +12,14 @@ import com.google.android.gms.maps.model.*
 import java.util.*
 import androidx.core.app.ActivityCompat
 import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Point
 import androidx.core.content.ContextCompat
 import android.location.Location
-import android.widget.FrameLayout
+import android.os.Build
+import android.os.Handler
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.CameraPosition
@@ -25,14 +28,48 @@ import com.google.android.gms.tasks.Task
 import kotlin.collections.ArrayList
 import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageView
+import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.core.graphics.drawable.toBitmap
+import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+import br.com.simplepass.loadingbutton.customViews.ProgressButton
+import com.agrobit.adapters.NOSpinnerAdapter
+import com.agrobit.classes.NOSpinnerItem
+import com.agrobit.classes.Orchard
+import com.agrobit.framework.shareddata.UserSharedPreference
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.tapadoo.alerter.Alerter
+import kotlinx.android.synthetic.main.bottom_design.*
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import kotlin.math.round
+
+
 
 
 class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
-    GoogleMap.OnPolygonClickListener {
+    GoogleMap.OnPolygonClickListener, AdapterView.OnItemSelectedListener,GoogleMap.OnMapClickListener
+{
+    override fun onMapClick(p0: LatLng?) {
+        if (p0 != null) {
+            points.add(p0)
+        }
+        repaintMap()
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+    }
 
     private lateinit var frameLayout: FrameLayout
 
@@ -76,6 +113,23 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
 
     private lateinit var points:ArrayList<LatLng>
 
+    private lateinit var bottomSheetBehavior:BottomSheetBehavior<View>
+
+    private lateinit var lista:ArrayList<NOSpinnerItem>
+    private lateinit var txtArea:EditText
+
+    private lateinit var rlProgressBar:RelativeLayout
+
+    //For save orchard
+    //private lateinit var
+    private lateinit var dbrOrchards: DatabaseReference
+    private lateinit var database: FirebaseDatabase
+
+    private lateinit var btn_save_orchard:CircularProgressButton
+    private lateinit var orchardName:EditText
+    private lateinit var spinner:Spinner
+
+    private var saved:Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,13 +143,15 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
 
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_new_orchard)
+
+        rlProgressBar=findViewById(R.id.rlProgressBar)
+
         findViewById<ImageView>(R.id.back).setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
                 finish()
             }
 
         })
-
         findViewById<FloatingActionButton>(R.id.remove).setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
                 if(points.size!=0)
@@ -113,25 +169,7 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
 
         })
 
-        val bottomSheet:View=findViewById(R.id.bottomdesign)
-        val bottomSheetBehavior=BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.setBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
-            override fun onSlide(p0: View, p1: Float) {
-
-            }
-
-            override fun onStateChanged(p0: View, p1: Int) {
-            }
-
-        })
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-        bottomSheet.findViewById<ImageView>(R.id.back_bd).setOnClickListener(object: View.OnClickListener{
-            override fun onClick(p0: View?) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-            }
-
-        })
+        configureBS()
 
         findViewById<FloatingActionButton>(R.id.next).setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
@@ -149,6 +187,10 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
                     if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                     }else{
+                        var ar:Double=calculateAreaOfGPSPolygonOnEarthInSquareMeters(points,6371000)/1000
+                        txtArea.setText("%.2f".format(ar)+" has")
+                        mMap.uiSettings.setAllGesturesEnabled(false)
+                        mMap.setOnMapClickListener(null)
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     }
                 }
@@ -156,8 +198,7 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
 
         })
 
-
-
+        
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -165,6 +206,182 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
+    }
+
+    fun calculateAreaOfGPSPolygonOnEarthInSquareMeters(locs:List<LatLng>,radius:Int):Double {
+    return calculateAreaOfGPSPolygonOnSphereInSquareMeters(locs, radius);
+  }
+
+  fun calculateAreaOfGPSPolygonOnSphereInSquareMeters(locs:List<LatLng>, radius:Int):Double {
+    if (locs.size < 3) {
+      return 0.0;
+    }
+
+    val diameter:Double = (radius * 2.0);
+    val circumference:Double = diameter * Math.PI;
+    val listY:MutableList<Double>  = ArrayList<Double>();
+    val listX:MutableList<Double>  = ArrayList<Double>();
+    val listArea:MutableList<Double>  = ArrayList<Double>();
+    // calculate segment x and y in degrees for each point
+    val latitudeRef:Double = locs.get(0).latitude
+    val longitudeRef:Double = locs.get(0).longitude
+    for (x in locs) {
+      val latitude:Double= x.latitude
+      val longitude:Double = x.longitude
+        listY.add(calculateYSegment(latitudeRef, latitude, circumference));
+      //Log.d(LOG_TAG, String.format("Y %s: %s", listY.size() - 1, listY.get(listY.size() - 1)));
+      listX.add(calculateXSegment(longitudeRef, longitude, latitude, circumference));
+      //Log.d(LOG_TAG, String.format("X %s: %s", listX.size() - 1, listX.get(listX.size() - 1)));
+    }
+
+    // calculate areas for each triangle segment
+    for (i in 1..(listX.size-1)) {
+      val x1:Double = listX.get(i - 1);
+      val y1:Double = listY.get(i - 1);
+      val x2:Double = listX.get(i);
+      val y2:Double= listY.get(i);
+      listArea.add(calculateAreaInSquareMeters(x1, x2, y1, y2));
+      //Log.d(LOG_TAG, String.format("area %s: %s", listArea.size() - 1, listArea.get(listArea.size() - 1)));
+    }
+
+    // sum areas of all triangle segments
+    var areasSum:Double = 0.0;
+    for (area in listArea) {
+      areasSum = areasSum + area;
+    }
+
+    // get abolute value of area, it can't be negative
+    return Math.abs(areasSum);// Math.sqrt(areasSum * areasSum);
+  }
+
+  fun calculateAreaInSquareMeters(x1:Double,x2:Double,y1:Double, y2:Double):Double {
+    return (y1 * x2 - x1 * y2) / 2;
+  }
+
+  fun calculateYSegment(latitudeRef:Double,latitude:Double,circumference:Double):Double {
+    return (latitude - latitudeRef) * circumference / 360.0;
+  }
+
+  fun calculateXSegment(longitudeRef:Double, longitude:Double, latitude:Double,
+      circumference:Double) :Double{
+    return (longitude - longitudeRef) * circumference * Math.cos(Math.toRadians(latitude)) / 360.0;
+  }
+
+    fun configureBS(){
+        //Configure BottonSheet
+        val bottomSheet:View=findViewById(R.id.bottomdesign)
+        bottomSheetBehavior=BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.setBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
+            override fun onSlide(p0: View, p1: Float) {
+
+            }
+            override fun onStateChanged(p0: View, p1: Int) {
+                if(bottomSheetBehavior.state==BottomSheetBehavior.STATE_HIDDEN){
+                    mMap.uiSettings.setAllGesturesEnabled(true)
+                    mMap.setOnMapClickListener(this@NewOrchardActivity)
+                }else{
+                    mMap.uiSettings.setAllGesturesEnabled(false)
+                    mMap.setOnMapClickListener(null)
+                }
+            }
+
+        })
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        //Configure spinner
+        spinner = bottomSheet.findViewById(R.id.no_spinner)
+        lista=getItemsSpinner()
+        val adapter=NOSpinnerAdapter(this,lista)
+        if(spinner!=null){
+            spinner.adapter=adapter
+            spinner.setOnItemSelectedListener(this)
+        }
+
+        txtArea=bottomSheet.findViewById<EditText>(R.id.areaOrchard)
+        //Configure button
+        orchardName=bottomSheet.findViewById<EditText>(R.id.orchard_name)
+
+        //Declare the button for save data
+        btn_save_orchard = bottomSheet.findViewById(R.id.btn_save_orchard)
+        btn_save_orchard.run { setOnClickListener { morphDoneAndRevert(this@NewOrchardActivity) }}
+
+    }
+
+    private fun ProgressButton.morphDoneAndRevert(
+        context: Context,
+        fillColorSuccess: Int = defaultColor(context),
+        fillColorError: Int = errorColor(context),
+        bitmap: Bitmap = successDoneImage(context.resources),
+        bitmapError: Bitmap = errorDoneImage(context.resources),
+        doneTime: Long = 3000,
+        revertTime: Long = 4000,
+        finishTime: Long = 5000
+    ) {
+        progressType = ProgressType.INDETERMINATE
+        startAnimation()
+        Handler().run {
+            postDelayed({
+                saved=saveOrchard()
+                if(saved)
+                    doneLoadingAnimation(fillColorSuccess, bitmap)
+                else
+                    doneLoadingAnimation(fillColorError,bitmapError)
+            }, doneTime)
+            postDelayed({
+                btn_save_orchard.revertAnimation()
+
+                btn_save_orchard.setTextColor(Color.parseColor("#FFFFFF"))
+                btn_save_orchard.setBackgroundResource(R.drawable.button_blue_round)
+
+
+                //EnableSaveItemButton()
+            }, revertTime)
+            postDelayed({
+                if(saved){
+                    //bottomSheetBehavior.state=BottomSheetBehavior.STATE_HIDDEN
+                    finish()
+                }
+            },finishTime)
+        }
+    }
+
+    fun saveOrchard():Boolean{
+        if(orchardName.text.toString().equals("")){
+            orchardName.setError("Requerido")
+            return false
+        }else{
+            orchardName.setError(null)
+
+            val current=SimpleDateFormat("yyyyMMddHHmm").format(Calendar.getInstance().time)
+
+            var tp:String
+            if(spinner.selectedItemPosition==0)
+                tp="avocado"
+            else
+                tp="corn"
+
+            var l:MutableMap<String, Double> = HashMap()
+            for(x in 0..points.size-1){
+                l.put("la"+x,points[x].latitude)
+                l.put("lo"+x,points[x].longitude)
+            }
+
+            var or = Orchard("",orchardName.text.toString(),txtArea.text.toString().removeSuffix(" has"),"",tp,5, current,
+                "0","",0,0,0,l)
+            return or.save(UserSharedPreference(this).getUser().uuid)
+        }
+    }
+
+    private fun defaultColor(context: Context) = ContextCompat.getColor(context, R.color.darkGreen)
+    private fun errorColor(context: Context) = ContextCompat.getColor(context, R.color.darkRed)
+    private fun successDoneImage(resources: Resources) =getResources().getDrawable(R.drawable.ic_check).toBitmap()
+    private fun errorDoneImage(resources: Resources) =getResources().getDrawable(R.drawable.ic_fail_white).toBitmap()
+
+    private fun getItemsSpinner(): ArrayList<NOSpinnerItem> {
+        lista= ArrayList()
+        lista.add(NOSpinnerItem("Aguacate",R.drawable.ic_avocado))
+        lista.add(NOSpinnerItem("Maíz",R.drawable.ic_corn))
+        return lista
     }
 
     /**
@@ -198,71 +415,10 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onMapReady(googleMap: GoogleMap) {
 
         mMap=googleMap
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.mapType = GoogleMap.MAP_TYPE_HYBRID;
 
 
-        mMap.setOnMapClickListener {
-            points.add(it)
-            repaintMap()
-        }
-/*
-        frameLayout=findViewById(R.id.fram_map)
-        frameLayout.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-                val x = p1!!.getX();
-                val y = p1!!.getY();
-
-                val x_co = Math.round(x);
-                val y_co = Math.round(y);
-
-                val projection = mMap.getProjection();
-                val x_y_points = Point(x_co, y_co);
-
-                val latLng = mMap.getProjection().fromScreenLocation(x_y_points);
-                val latitude = latLng.latitude;
-
-                val longitude = latLng.longitude;
-
-                val eventaction = p1.getAction();
-
-                if(eventaction ==MotionEvent.ACTION_DOWN){
-                    // finger touches the screen
-                    points.add(LatLng(latitude, longitude))
-                }else if(eventaction==MotionEvent.ACTION_UP){
-                    drawArea(mMap)
-                }
-                return true;
-            }
-        })
-*/
-        /* Add polygons to indicate areas on the map.
-        val polygon1 = googleMap.addPolygon(
-            PolygonOptions()
-                .clickable(true)
-                .add(
-                    LatLng(-27.457, 153.040),
-                    LatLng(-33.852, 151.211),
-                    LatLng(-37.813, 144.962),
-                    LatLng(-34.928, 138.599)
-                )
-        )*/
-        /* Store a data object with the polygon, used here to indicate an arbitrary type.
-        polygon1.tag = "alpha"
-        // Style the polygon.
-        stylePolygon(polygon1)
-
-        val polygon2 = googleMap.addPolygon(
-            PolygonOptions()
-                .clickable(true)
-                .add(
-                    LatLng(-31.673, 128.892),
-                    LatLng(-31.952, 115.857),
-                    LatLng(-17.785, 122.258),
-                    LatLng(-12.4258, 130.7932)
-                )
-        )
-        polygon2.tag = "beta"
-        stylePolygon(polygon2)*/
+        mMap.setOnMapClickListener(this)
 
         // Prompt the user for permission.
         getLocationPermission();
@@ -274,13 +430,7 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
         getDeviceLocation();
 
 
-        // Position the map's camera near Alice Springs in the center of Australia,
-        // and set the zoom factor so most of Australia shows on the screen.
-        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-23.684, 133.903), 4f))
 
-        // Set listeners for click events.
-        //googleMap.setOnPolylineClickListener(this)
-        //googleMap.setOnPolygonClickListener(this)
     }
 
     fun drawArea(googleMap: GoogleMap){
@@ -426,6 +576,18 @@ class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
             )
         }
+    }
+
+    override fun onBackPressed() {
+        if (bottomSheetBehavior!=null && bottomSheetBehavior.getState() !=
+            BottomSheetBehavior.STATE_HIDDEN) {
+            mMap.uiSettings.setAllGesturesEnabled(true)
+            mMap.setOnMapClickListener (this)
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            return;
+        }
+        super.onBackPressed()
+        return
     }
 
 }

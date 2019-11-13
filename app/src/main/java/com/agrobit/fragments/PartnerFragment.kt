@@ -1,6 +1,7 @@
 package com.agrobit.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.agrobit.R
+import com.agrobit.activity.FindPartnerActivity
 import com.agrobit.adapters.PartnerAdapter
 import com.agrobit.classes.Partner
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +62,13 @@ class PartnerFragment : Fragment() {
         val adapter = this.context?.let { PartnerAdapter(it, order) }
         orchardRecyclerView.adapter=adapter
         orchardRecyclerView.layoutManager= LinearLayoutManager(context)
+
+        vista.findViewById<FloatingActionButton>(R.id.new_partner).setOnClickListener(object:View.OnClickListener{
+            override fun onClick(p0: View?) {
+                startActivity(Intent(vista.context, FindPartnerActivity::class.java))
+            }
+
+        })
 
         return vista
     }

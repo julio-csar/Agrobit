@@ -12,30 +12,15 @@
     <color name="textGray">#4b5d73</color>
     <color name="backgroundPB">#f2f6f9</color>
 
-    <color name="f1">#DC2F1F</color>
-    <color name="f2">#F04C26</color>
-    <color name="f3">#F78626</color>
     <color name="f4">#61C2D2</color>
-    <color name="f5">#4D9762</color>
-
-    <color name="card_bg_color">#f6f6f6</color>
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="darkBlue">#133273</color>
-    <color name="darkGray">#636466</color>
 
     <color name="darkGreen">#7DBF06</color>
-    <color name="lightBlue">#166CBF</color>
     <color name="lightGray">#F9F9FA</color>
     <color name="darkRed">#E2574C</color>
-    <color name="black">#000000</color>
     <color name="blueBackground">#3e4ca5</color>
-    <color name="white_alpha">#88ffffff</color>
 
-    <color name="profile_ranch">#333333</color>
-    <color name="profile_info">#333333</color>
-    <color name="profile_info_title">#4e4e51</color>
-    <color name="initialSignUpButton">#333e85</color>
-    <color name="greyHeaderBackground">#fafafa</color>
 </resources>
 

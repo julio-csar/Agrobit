@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/rootView"
-                android:layout_width="match_parent"
+        android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".account.SignupActivity"
                 android:background="#ffffff">
@@ -20,7 +19,6 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_left_arrow"/>
         <ImageView
-                android:id="@+id/support"
                 android:src="@drawable/ic_headphones"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -55,7 +53,6 @@
             android:theme="@style/ProgressBarStyle" />
 
     <RelativeLayout
-            android:id="@+id/afterAnimationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
@@ -154,7 +151,6 @@
             </LinearLayout>
 
             <EditText
-                    android:id="@+id/codigo"
                     android:drawableEnd="@drawable/ic_infoq"
                     android:layout_marginTop="25dp"
                     android:layout_width="match_parent"

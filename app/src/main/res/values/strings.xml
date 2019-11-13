@@ -1,23 +1,12 @@
 <resources>
     <string name="app_name">Agrobit</string>
 
-    <string name="mapbox_access_token">
-        pk.eyJ1IjoianVsaW8tY2VzYXIiLCJhIjoiY2pqOHA1Zzl2MG5xbTNxcDJhNnlxejN6dCJ9.3_5p6-RSpwkuHDJ67N4Zgw
-    </string>
     <string name="google_maps_key">
         AIzaSyA-9bHYKsJ3eRTpmxBGDfO50PFSAtNroHU
     </string>
 
 
-    <string name="welcome_back">Bienvenido</string>
-    <string name="welcome">Bienvenido</string>
-    <string name="slogan">Escaneo agrícola inteligente</string>
-    <string name="sign_up">Registrarse</string>
-    <string name="forget_password">Recuperar contraseña</string>
-    <string name="login">Iniciar sesión</string>
-    <string name="name">Nombre</string>
     <string name="email">Correo</string>
-    <string name="password">Contraseña</string>
     <string name="message_sigin_correct_title">¡Registro exitoso!</string>
     <string name="message_sigin_correct_desciption">Ahora revisa tu bandeja de entrada y confirma tu correo para poder
         iniciar sesión
@@ -31,27 +20,13 @@
     </string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="buscar">Buscar</string>
-    <string name="label_hint_search_orchard_screen">Buscar</string>
 
-    <string name="label_profile_information">Información general de la cuenta</string>
-    <string name="label_profile_client">Nombre</string>
-    <string name="label_profile_email">Correo</string>
-    <string name="label_profile_phone">Teléfono</string>
-    <string name="label_profile_orchards">Huertas</string>
     <string name="password_strength_weak">Debil</string>
     <string name="password_strength_medium">Media</string>
     <string name="password_strength_strong">Fuerte</string>
     <string name="password_strength_very_strong">Muy fuerte</string>
     <string name="signupPassword">Tu contraseña</string>
     <string name="signupFirstName">Tu nombre</string>
-    <string name="signupPA">Tu primer apellido</string>
-    <string name="signupSA">Tu segundo apellido</string>
     <string name="signupPhone">Tu número de teléfono</string>
 
-    <string-array name="gender">
-        <item>Masculino</item>
-        <item>Femenino</item>
-    </string-array>
 </resources>

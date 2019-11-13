@@ -23,7 +23,6 @@
                     android:fontFamily="sans-serif-light"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:id="@+id/title_o"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -43,7 +42,7 @@
                     android:layout_toStartOf="@id/search_o"
                     android:layout_marginRight="10dp"/>
             <ImageView
-                    android:id="@+id/support"
+                    android:id="@+id/refresh_button"
                     android:src="@drawable/ic_synchronize"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
@@ -89,5 +88,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp" />
+    <include
+            android:id="@+id/rlProgressBar"
+            android:visibility="gone"
+            layout="@layout/loading_screen"
+            />
 
 </FrameLayout>

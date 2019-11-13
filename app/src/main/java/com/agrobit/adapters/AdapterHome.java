@@ -38,42 +38,41 @@ public class AdapterHome extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater=LayoutInflater.from(context);
-        View view=layoutInflater.inflate(R.layout.item_orchard,container,false);
+        View view;
+            view = layoutInflater.inflate(R.layout.item_orchard, container, false);
+            ImageView imageView,status;
+            TextView name,desc,hora;
 
-        ImageView imageView,status;
-        TextView name,desc,hora;
+            imageView=view.findViewById(R.id.orchar_image);
+            status=view.findViewById(R.id.status);
+            name=view.findViewById(R.id.orchar_name);
+            desc=view.findViewById(R.id.orchar_desc);
+            hora=view.findViewById(R.id.hora);
 
-        imageView=view.findViewById(R.id.orchar_image);
-        status=view.findViewById(R.id.status);
-        name=view.findViewById(R.id.orchar_name);
-        desc=view.findViewById(R.id.orchar_desc);
-        hora=view.findViewById(R.id.hora);
-
-        imageView.setImageResource(models.get(position).getImage());
-        switch (models.get(position).getStatus()){
-            case 1:
-                status.setImageResource(R.drawable.ic_f1);
-                break;
-            case 2:
-                status.setImageResource(R.drawable.ic_f2);
-                break;
-            case 3:
-                status.setImageResource(R.drawable.ic_f3);
-                break;
-            case 4:
-                status.setImageResource(R.drawable.ic_f4);
-                break;
-            case 5:
-                status.setImageResource(R.drawable.ic_f5);
-                break;
-            case 6:
-                status.setImageResource(R.drawable.ic_f6);
-                break;
-        }
-        name.setText(models.get(position).getName());
-        desc.setText(models.get(position).getDesc());
-        hora.setText(models.get(position).getHora());
-
+            imageView.setImageResource(models.get(position).getImage());
+            switch (models.get(position).getStatus()){
+                case 1:
+                    status.setImageResource(R.drawable.ic_f1);
+                    break;
+                case 2:
+                    status.setImageResource(R.drawable.ic_f2);
+                    break;
+                case 3:
+                    status.setImageResource(R.drawable.ic_f3);
+                    break;
+                case 4:
+                    status.setImageResource(R.drawable.ic_f4);
+                    break;
+                case 5:
+                    status.setImageResource(R.drawable.ic_f5);
+                    break;
+                case 6:
+                    status.setImageResource(R.drawable.ic_f6);
+                    break;
+            }
+            name.setText(models.get(position).getName());
+            desc.setText(models.get(position).getDesc());
+            hora.setText(models.get(position).getHora());
         container.addView(view,0);
 
         return view;

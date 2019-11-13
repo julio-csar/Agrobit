@@ -78,7 +78,6 @@
     <EditText
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:id="@+id/created"
             android:inputType="textPersonName"
             android:maxLines="1"
             android:maxLength="30"
@@ -94,7 +93,6 @@
     <Button
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:id="@+id/btn_solicitar"
             android:text="Solicitar análisis"
             android:textColor="@color/white"
             android:textAllCaps="false"

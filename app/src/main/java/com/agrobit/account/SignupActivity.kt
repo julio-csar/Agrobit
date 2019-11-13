@@ -196,9 +196,6 @@ class SignupActivity : AppCompatActivity(),TextWatcher {
         for (x in images)
             x.setImageDrawable(resources.getDrawable(R.drawable.pc_none))
 
-        //if (TextView.VISIBLE != strengthView.visibility)
-        //  return
-
         if (password.equals("")) {
             for (x in images)
                 x.setImageDrawable(resources.getDrawable(R.drawable.pc_none))

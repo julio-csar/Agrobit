@@ -151,7 +151,9 @@ public class UserSharedPreference {
         DatabaseReference updateData = FirebaseDatabase.getInstance()
                 .getReference("users")
                 .child(user.getUuid());
+        //updateData.set
         updateData.setValue(user);
+
 
     }
     public final void deleteUser() {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+    <LinearLayout
+            android:id="@+id/linlays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:orientation="horizontal"
+            android:layout_toLeftOf="@id/im_spinner">
+        <ImageView
+                android:padding="10dp"
+                android:id="@+id/iv_spinner_item"
+                android:src="@drawable/ic_avocado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:padding="10dp"
+                android:id="@+id/tv_spinner_item"
+                android:textColor="@color/textGray"
+                android:text="Aguacate"
+                android:textStyle="normal"
+                android:fontFamily="sans-serif-light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"/>
+    </LinearLayout>
+
+    <ImageView
+            android:padding="10dp"
+            android:id="@+id/im_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_arrow_down_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <View
+            android:layout_below="@id/linlays"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/divider"/>
+
+</RelativeLayout>

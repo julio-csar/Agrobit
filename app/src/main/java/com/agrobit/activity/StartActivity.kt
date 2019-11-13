@@ -24,10 +24,7 @@ class StartActivity : AppCompatActivity(){
 
         sbStart.setOnClickListener{view->
             val newIntent = Intent(this@StartActivity, SignupActivity::class.java)
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(newIntent)
-            this.finish()
         }
         lbStart.setOnClickListener{view->
             val newIntent = Intent(this@StartActivity, LoginActivity::class.java)

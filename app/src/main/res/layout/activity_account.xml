@@ -8,7 +8,6 @@
         android:background="#fcfcfc"
         tools:context=".account.AccountActivity">
     <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbarProfile"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:layout_width="match_parent"
             android:layout_height="250dp"
@@ -16,15 +15,13 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-        android:id="@+id/collapsingProfile"
-        app:layout_scrollFlags="exitUntilCollapsed|scroll"
+                app:layout_scrollFlags="exitUntilCollapsed|scroll"
         app:contentScrim="@color/colorPrimary"
         app:title="Mi perfil"
         app:expandedTitleMarginStart="48dp"
         app:expandedTitleMarginEnd="64dp"
         >
             <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbarProfile"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     android:layout_width="match_parent"
                     app:layout_collapseMode="pin"

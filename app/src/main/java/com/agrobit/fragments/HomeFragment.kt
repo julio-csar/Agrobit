@@ -1,5 +1,6 @@
 package com.agrobit.fragments
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -22,8 +23,12 @@ import com.agrobit.adapters.AdapterHome
 import com.agrobit.adapters.AdapterTasks
 import com.agrobit.classes.ModelAnalisis
 import com.agrobit.classes.ModelHome
+import com.agrobit.classes.Orchard
 import com.nex3z.notificationbadge.NotificationBadge
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,10 +84,31 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         vista= inflater.inflate(R.layout.fragment_home, container, false)
-        models=ArrayList<ModelHome>()
-        models.add(ModelHome(R.drawable.ic_avocado,"Rancho San Gabriel","13 ha - Aguacate","Hoy, 07:07h",1))
-        models.add(ModelHome(R.drawable.ic_corn,"Rosales","45.5 ha - Maíz","Ayer, 09:20h",4))
-        models.add(ModelHome(R.drawable.ic_avocado,"Sauceda","10 ha - Aguacate","25/08, 07:07h",3))
+
+        val orchardsL= Orchard.getorchardsFromFile(this.context,"orchards.json","orchards")
+        val models=ArrayList<ModelHome>()
+
+        for (x in orchardsL){
+            if(x.status<=2){
+                var i=0
+                var t=""
+                if(x.type.equals("avocado")) {
+                    i = R.drawable.ic_avocado
+                    t = "Aguacate"
+                }
+                else
+                {
+                    i=R.drawable.ic_corn
+                    t="Maíz"
+                }
+                models.add(ModelHome(i,x.name,x.size+" ha - "+t,getDate(x.lasta),x.status))
+            }
+
+        }
+        if(models.size==0)
+            models.add(ModelHome(R.drawable.ic_correct,"Sin pendientes","0 huertas requieren atención","Todo parece normal",5))
+        //models.add(ModelHome(R.drawable.ic_corn,"Rosales","45.5 ha - Maíz","Ayer, 09:20h",4))
+        //models.add(ModelHome(R.drawable.ic_avocado,"Sauceda","10 ha - Aguacate","25/08, 07:07h",3))
 
         homeAdapter= AdapterHome(models,this.context)
         viewPager=vista.findViewById(R.id.viewPager)
@@ -91,9 +117,13 @@ class HomeFragment : Fragment() {
 
         //Para la lista de analisis recientes
         modelsAnalisis=ArrayList<ModelAnalisis>()
-        modelsAnalisis.add(ModelAnalisis(R.drawable.ic_avocado,"Los camichimes","43","Roberto S","15/08/2019","16:00"))
-        modelsAnalisis.add(ModelAnalisis(R.drawable.ic_corn,"Zapotiltic","10","Pedro Mata","31/09/2019","09:00"))
-        modelsAnalisis.add(ModelAnalisis(R.drawable.ic_avocado,"Jiquilpan","34","Carla","12/10/2019","10:15"))
+        //modelsAnalisis.add(ModelAnalisis(R.drawable.ic_avocado,"Los camichimes","43","Roberto S","15/08/2019","16:00"))
+        //modelsAnalisis.add(ModelAnalisis(R.drawable.ic_corn,"Zapotiltic","10","Pedro Mata","31/09/2019","09:00"))
+        //modelsAnalisis.add(ModelAnalisis(R.drawable.ic_avocado,"Jiquilpan","34","Carla","12/10/2019","10:15"))
+        val current= SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time)
+        val hour= SimpleDateFormat("HH:mm").format(Calendar.getInstance().time)
+        modelsAnalisis.add(ModelAnalisis(R.drawable.ic_correct,"No hay análisis","0 mapeos próximos","Se te informarán cambios",current,hour))
+
 
         analisisAdapter= AdapterAnalisis(modelsAnalisis,this.context)
         viewPagerAnalisis=vista.findViewById(R.id.viewPagerAnalisis)
@@ -118,6 +148,30 @@ class HomeFragment : Fragment() {
         return vista
     }
 
+    fun getDate(valor:String): String {
+        if(valor.length==1){
+            return "Nunca"
+        }
+        else
+        {
+            var fecha:String=""
+
+            fecha+=valor.toString().subSequence(6,8).toString()
+            fecha+="/"
+            fecha+=valor.toString().subSequence(4,6).toString()
+            fecha+="/"
+            fecha+=valor.toString().subSequence(0,4).toString()
+            fecha+=", "
+            fecha+=valor.toString().subSequence(8,10).toString()
+            fecha+=":"
+            fecha+=valor.toString().substring(10)
+            fecha+="hs"
+
+            return fecha
+        }
+    }
+
+    @SuppressLint("WrongConstant")
     fun notificacion(view:View){
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             val imp=NotificationManager.IMPORTANCE_HIGH

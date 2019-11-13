@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:id="@+id/bottomdesign"
+        android:theme="@style/WhiteCursorTheme"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        app:behavior_hideable="true">
+        app:behavior_hideable="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp">
     <RelativeLayout
 
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:id="@+id/header_part"
             android:layout_width="match_parent"
             android:layout_height="50dp">
-        <ImageButton
-                android:background="@color/colorWhite"
-                android:id="@+id/back_bd"
-                android:layout_alignTop="@id/title_profile"
-                android:layout_alignBottom="@id/title_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_left_arrow"/>
         <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@id/back_bd"
                 android:text="Información de la huerta"
                 android:textColor="@color/textGray"
-                android:textSize="17sp"
+                android:textSize="18sp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:textStyle="bold"
@@ -39,8 +32,6 @@
 
     </RelativeLayout>
     <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -54,18 +45,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <EditText
+                android:id="@+id/orchard_name"
+                android:hint="Ingresa un nombre"
                 android:inputType="textPersonName"
                 android:maxLines="1"
                 android:maxLength="30"
-                android:nextFocusDown="@id/areaOrchard"
-                android:id="@+id/orchardName"
+                android:nextFocusDown="@id/no_spinner"
                 android:textColor="@color/textGray"
                 android:textStyle="normal"
                 android:fontFamily="sans-serif-light"
                 android:textSize="16sp"
-                android:text="Huerta sin nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+        <TextView
+                android:layout_marginTop="10dp"
+                android:text="Tipo"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/textGray"
+                android:textStyle="normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <Spinner
+
+                android:background="@color/white"
+                android:id="@+id/no_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nextFocusDown="@id/areaOrchard"/>
         <TextView
                 android:layout_marginTop="10dp"
                 android:text="Área"
@@ -77,10 +84,11 @@
                 android:layout_height="wrap_content"/>
         <EditText
                 android:id="@+id/areaOrchard"
-                android:inputType="textPersonName"
+                android:editable="false"
+                android:focusable="false"
                 android:maxLines="1"
                 android:maxLength="30"
-                android:nextFocusDown="@id/fname"
+                android:nextFocusDown="@id/btn_save_orchard"
                 android:textColor="@color/textGray"
                 android:textStyle="normal"
                 android:fontFamily="sans-serif-light"
@@ -88,17 +96,19 @@
                 android:text="244"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-        <Button
-                android:layout_gravity="bottom"
-                android:id="@+id/btn_solicitar"
-                android:text="Solicitar análisis"
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+
+                android:id="@+id/btn_save_orchard"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="bottom|center"
+                android:text="Guardar huerta"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_blue_round"/>
+                android:background="@drawable/button_blue_round"
+                app:spinning_bar_color="#FFF"
+                app:spinning_bar_padding="6dp"/>
     </LinearLayout>
-
-
 </LinearLayout>

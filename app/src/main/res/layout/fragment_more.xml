@@ -24,7 +24,6 @@
                     android:fontFamily="sans-serif-light"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:id="@+id/title_par"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
         </RelativeLayout>
@@ -86,7 +85,6 @@
                     android:src="@drawable/ic_t5"/>
         </RelativeLayout>
         <RelativeLayout
-                android:id="@+id/ajustes_rl"
                 android:padding="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -121,7 +119,6 @@
                     android:src="@drawable/ic_t5"/>
         </RelativeLayout>
         <RelativeLayout
-                android:id="@+id/support_rl"
                 android:padding="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -134,7 +131,6 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_headphones"/>
         <TextView
-                android:id="@+id/soporte_title"
                 android:layout_toEndOf="@id/soporte_menu"
                 android:layout_alignBottom="@id/soporte_menu"
                 android:layout_marginLeft="15dp"
@@ -156,7 +152,6 @@
                 android:src="@drawable/ic_t5"/>
     </RelativeLayout>
         <RelativeLayout
-                android:id="@+id/invitar_rl"
                 android:padding="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -169,7 +164,6 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_like_menu"/>
             <TextView
-                    android:id="@+id/invitar_title"
                     android:layout_toEndOf="@id/invitar_menu"
                     android:layout_alignBottom="@id/invitar_menu"
                     android:layout_marginLeft="15dp"
@@ -191,7 +185,6 @@
                     android:src="@drawable/ic_t5"/>
         </RelativeLayout>
         <RelativeLayout
-                android:id="@+id/premios_rl"
                 android:padding="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -204,7 +197,6 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_medal_menu"/>
             <TextView
-                    android:id="@+id/premios_title"
                     android:layout_toEndOf="@id/premios_menu"
                     android:layout_alignBottom="@id/premios_menu"
                     android:layout_marginLeft="15dp"

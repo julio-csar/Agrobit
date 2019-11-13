@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -60,10 +61,24 @@ class OrchardsUltimas : Fragment() {
         var orchardsL= Orchard.getorchardsFromFile(this.context,"orchards.json","orchards")
         val order=orchardsL.sortedWith(compareBy({ it.crea }))
         val itemList=ArrayList<Item>()
-        for (x in 1..5){
+
+        var n=order.size
+        if(n>=5)
+            n=4
+
+        if(order.size>0){
+            for (x in 1..n){
                 itemList.add(Item(2,order[order.size-x]))
+            }
         }
+
         itemList.add(0, Item(1, HeaderPage("Añadidas recientemente", itemList.size)))
+
+        if(itemList.size>1){
+            vista.findViewById<ImageView>(R.id.bg_orchards_last).visibility=View.GONE
+        }else{
+            vista.findViewById<ImageView>(R.id.bg_orchards_last).visibility=View.VISIBLE
+        }
 
         val adapter = this.context?.let { OrchardUlAdapter(it, itemList) }
         orchardRecyclerView.adapter=adapter

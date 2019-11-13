@@ -9,9 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.agrobit.R
 import com.agrobit.adapters.AnalisisAdapter
 import com.agrobit.classes.Analisis
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.activity_orchard.*
-import kotlinx.android.synthetic.main.bottom_sheet_orchard.*
 
 class OrchardActivity : AppCompatActivity() {
 

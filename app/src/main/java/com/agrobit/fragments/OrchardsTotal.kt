@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -65,6 +66,12 @@ class OrchardsTotal : Fragment(){
             itemList.add(Item(2,x))
         }
         itemList.add(0,Item(1, HeaderPage("Huertas totales", orchardsL.size)))
+
+        if(itemList.size>1){
+            vista.findViewById<ImageView>(R.id.bg_orchards_total).visibility=View.GONE
+        }else{
+            vista.findViewById<ImageView>(R.id.bg_orchards_total).visibility=View.VISIBLE
+        }
 
         val adapter = this.context?.let { OrchardTotalAdapter(it, itemList) }
         orchardRecyclerView.adapter=adapter

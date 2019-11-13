@@ -53,10 +53,10 @@ public class AdapterAnalisis extends PagerAdapter {
 
         imageView.setImageResource(models.get(position).getImage());
         name.setText(models.get(position).getName());
-        area.setText(models.get(position).getArea()+" has");
-        tec.setText("Técnico "+models.get(position).getTec());
+        area.setText(models.get(position).getArea());
+        tec.setText(models.get(position).getTec());
         fecha.setText(models.get(position).getFecha());
-        hora.setText(models.get(position).getHora()+" hs");
+        hora.setText(models.get(position).getHora());
 
 
         container.addView(view,0);
