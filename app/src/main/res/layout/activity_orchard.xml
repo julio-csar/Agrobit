@@ -1,120 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:fitsSystemWindows="true"
         android:background="@color/white"
-        android:orientation="vertical"
         tools:context=".activity.OrchardActivity">
-    <RelativeLayout
 
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:id="@+id/header_part"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-        <ImageButton
-                android:background="@color/colorWhite"
-                android:id="@+id/back"
-                android:layout_alignTop="@id/title_profile"
-                android:layout_alignBottom="@id/title_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_left_arrow"/>
-        <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@id/back"
-                android:text="Andrade"
-                android:textColor="@color/textGray"
-                android:textSize="17sp"
-                android:fontFamily="sans-serif-light"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:id="@+id/title_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"/>
-
-    </RelativeLayout>
-    <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
-
-        <TextView android:layout_width="match_parent"
-                android:id="@+id/nombre_bottom"
-                android:layout_height="30dp"
-                android:text="Aguacate"
-                android:textSize="24sp"
-                android:textColor="@color/darkBlue"
-                android:layout_toStartOf="@id/item_img_bottom"/>
-        <TextView android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:text="16 ha"
-                android:textSize="18sp"
-                android:layout_below="@id/nombre_bottom"
-                android:layout_toStartOf="@id/item_img_bottom"/>
-        <ImageView
-                android:id="@+id/item_img_bottom"
-                android:layout_width="45dp"
-                android:background="@drawable/ic_avocado"
-                android:layout_height="45dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true" />
-    </RelativeLayout>
-    <TextView
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Creado"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/textGray"
-            android:textStyle="normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    <EditText
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:maxLength="30"
-            android:nextFocusDown="@id/btn_save"
-            android:textColor="@color/textGray"
-            android:textStyle="normal"
-            android:fontFamily="sans-serif-light"
-            android:textSize="16sp"
-            android:text="25/01/2019"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    <Button
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:text="Solicitar análisis"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:layout_marginTop="15dp"
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/main.collapsing"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_blue_round"/>
-    <TextView
-            android:layout_margin="20dp"
-            android:id="@+id/descrip"
-            android:textColor="@color/tabSelected"
-            android:fontFamily="sans-serif-light"
-            android:textSize="20dp"
-            android:text="Histórico de análisis"
+            android:background="@color/colorWhite">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="223dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:expandedTitleTextAppearance="@android:color/transparent">
+            <FrameLayout
+                    android:layout_marginTop="48dp"
+                    app:layout_collapseMode="parallax"
+                    android:background="@color/colorWhite"
+                    android:id="@+id/main.framelayout.title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp">
+
+                        <TextView android:layout_width="match_parent"
+                                android:id="@+id/orchard_type"
+                                android:layout_height="30dp"
+                                android:text="Aguacate"
+                                android:textSize="24sp"
+                                android:textColor="@color/darkBlue"
+                                android:layout_toStartOf="@id/image_type"/>
+                        <TextView
+                                android:id="@+id/size"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_height="25dp"
+                                android:text="16 ha"
+                                android:textSize="18sp"
+                                android:layout_below="@id/orchard_type"
+                                android:layout_toStartOf="@id/image_type"/>
+                        <ImageView
+                                android:id="@+id/image_type"
+                                android:layout_width="45dp"
+                                android:background="@drawable/ic_avocado"
+                                android:layout_height="45dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/crea_title"
+                                android:layout_marginTop="10dp"
+                                android:text="Creada"
+                                android:textSize="14sp"
+                                android:fontFamily="sans-serif-light"
+                                android:textColor="@color/textGray"
+                                android:textStyle="normal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        <TextView
+                                android:layout_below="@id/crea_title"
+                                android:id="@+id/created"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:inputType="textPersonName"
+                                android:maxLines="1"
+                                android:maxLength="30"
+                                android:nextFocusDown="@id/btn_save"
+                                android:textColor="@color/textGray"
+                                android:textStyle="normal"
+                                android:fontFamily="sans-serif-light"
+                                android:textSize="16sp"
+                                android:text="25/01/2019"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        <Button
+                                android:layout_alignParentEnd="true"
+                                android:layout_below="@id/crea_title"
+                                android:paddingRight="10dp"
+                                android:paddingLeft="10dp"
+                                android:text="Solicitar análisis"
+                                android:textColor="@color/white"
+                                android:textAllCaps="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:background="@drawable/button_blue_round"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </FrameLayout>
+            <androidx.appcompat.widget.Toolbar
+                    app:layout_collapseMode="pin"
+                    android:layout_marginBottom="48dp"
+                    android:id="@+id/main.toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorWhite"
+                    app:layout_anchor="@id/main.collapsing"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark"
+                    app:title="">
+                <RelativeLayout
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/header_part"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+                    <ImageButton
+                            android:background="@color/colorWhite"
+                            android:id="@+id/back"
+                            android:layout_alignTop="@id/title_orchard"
+                            android:layout_alignBottom="@id/title_orchard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_left_arrow"/>
+                    <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_toEndOf="@id/back"
+                            android:text="Andrade"
+                            android:textColor="@color/textGray"
+                            android:textSize="17sp"
+                            android:fontFamily="sans-serif-light"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:id="@+id/title_orchard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"/>
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+            <com.google.android.material.tabs.TabLayout
+                    android:fillViewport="false"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="50dp"
+                    android:id="@+id/tabs_one_orchard"
+                    style="@style/AppTabLayout"
+                    app:tabTextAppearance="@style/AppTabTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.tabs.TabItem
+                        android:text="Métricas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <com.google.android.material.tabs.TabItem
+                        android:text="Histórico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <com.google.android.material.tabs.TabItem
+                        android:text="Tareas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.tabs.TabLayout>
+            <View
+                    android:layout_gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+            android:fillViewport="true"
             android:layout_width="match_parent"
-            android:gravity="left"
-            android:layout_height="wrap_content"/>
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/orchard_analisis"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    </androidx.recyclerview.widget.RecyclerView>
-</LinearLayout>
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:id="@+id/viewPagerOneOrchard">
+        </androidx.viewpager.widget.ViewPager>
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

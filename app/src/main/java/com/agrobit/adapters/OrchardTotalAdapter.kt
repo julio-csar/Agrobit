@@ -2,6 +2,7 @@ package com.agrobit.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,26 +16,43 @@ import com.agrobit.classes.Orchard
 import androidx.recyclerview.widget.RecyclerView.*
 import com.agrobit.activity.OrchardActivity
 import com.agrobit.classes.HeaderPage
+import android.os.Parcel
+import androidx.core.content.contentValuesOf
 
 
 public class OrchardTotalAdapter(mContext:Context, data:List<Item>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     val mContext: Context=mContext
-  val data:List<Item> = data
+    var data:List<Item> = data
 
-  companion object {
+    companion object {
     private val IMAGE_TYPE = hashMapOf(
       "avocado" to R.drawable.ic_avocado,
       "corn" to R.drawable.ic_corn
     )
   }
 
-  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    val i:Int=holder.itemViewType
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val i:Int=holder.itemViewType
+        var obj=data.get(position)
+        if(i==2){
+            var viewHolder:OrchardViewHolder=holder as OrchardViewHolder
+            viewHolder.setIsRecyclable(false)
+            var item:Orchard=data.get(position).item as Orchard
 
-    if(i==2){
-      var viewHolder:OrchardViewHolder=holder as OrchardViewHolder
-      viewHolder.setIsRecyclable(false)
-      var item:Orchard=data.get(position).item as Orchard
+            viewHolder.container.setOnClickListener(object:View.OnClickListener{
+                override fun onClick(p0: View?) {
+                    var intent =Intent(mContext, OrchardActivity::class.java)
+                    val bundle= Bundle()
+                    var orchard=data.get(holder.adapterPosition).item as Orchard
+
+                    bundle.putParcelable("orchard",orchard)
+                    intent.putExtra("Bundle",bundle)
+
+                    mContext.startActivity(intent)
+                }
+
+            })
+
       //viewHolder.itemImage.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation)
       //viewHolder.container.animation=AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation)
 
@@ -56,6 +74,7 @@ public class OrchardTotalAdapter(mContext:Context, data:List<Item>): RecyclerVie
       viewHolder.desc.setText(item.name)
     }
   }
+
     fun getDate(valor:String): String {
         if(valor.length==1){
             return "Nunca"
@@ -79,7 +98,7 @@ public class OrchardTotalAdapter(mContext:Context, data:List<Item>): RecyclerVie
         }
     }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):RecyclerView.ViewHolder {
     if(viewType==1){
       val layout:View=LayoutInflater.from(mContext).inflate(R.layout.header_page,parent,false)
       return HeaderViewHolder(layout)
@@ -90,15 +109,15 @@ public class OrchardTotalAdapter(mContext:Context, data:List<Item>): RecyclerVie
 
   }
 
-  override fun getItemCount(): Int {
+    override fun getItemCount(): Int {
     return data.size
   }
 
-  override fun getItemViewType(position: Int): Int {
+    override fun getItemViewType(position: Int): Int {
     return data.get(position).tipo
   }
 
-  public class OrchardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    public class OrchardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
       var container:RelativeLayout=itemView.findViewById(R.id.item_text)
       var itemImage:ImageView=itemView.findViewById(R.id.item_image)
@@ -109,15 +128,10 @@ public class OrchardTotalAdapter(mContext:Context, data:List<Item>): RecyclerVie
       var tareaspro:ImageView=itemView.findViewById(R.id.tareaspro)
       var show:ImageView=itemView.findViewById(R.id.show)
 
-      init {
-          container.setOnClickListener{
-              itemView.context.startActivity(Intent(itemView.context, OrchardActivity::class.java))
-          }
-      }
 
 
   }
-  public class HeaderViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+    public class HeaderViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
     var number:TextView=itemView.findViewById(R.id.total)
     var desc:TextView=itemView.findViewById(R.id.descrip)
   }

@@ -15,10 +15,8 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.Point
 import androidx.core.content.ContextCompat
 import android.location.Location
-import android.os.Build
 import android.os.Handler
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -26,10 +24,8 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import kotlin.collections.ArrayList
-import android.view.MotionEvent
 import android.view.View
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.core.graphics.drawable.toBitmap
 import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
@@ -40,17 +36,10 @@ import com.agrobit.classes.Orchard
 import com.agrobit.framework.shareddata.UserSharedPreference
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.tapadoo.alerter.Alerter
-import kotlinx.android.synthetic.main.bottom_design.*
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import kotlin.math.round
-
-
 
 
 class NewOrchardActivity : AppCompatActivity(), OnMapReadyCallback,

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+             android:layout_height="match_parent"
+             tools:context=".fragments.MetricsFragment">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+            android:orientation="vertical">
+        <TextView
+                android:layout_marginTop="15dp"
+                android:id="@+id/descrip"
+                android:textColor="@color/tabSelected"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20dp"
+                android:text="Humedad - Temperatura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <com.github.mikephil.charting.charts.LineChart
+                android:layout_marginTop="15dp"
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+        </com.github.mikephil.charting.charts.LineChart>
+        <TextView
+                android:layout_marginTop="15dp"
+                android:textColor="@color/tabSelected"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20dp"
+                android:text="Alertas detectadas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <com.github.mikephil.charting.charts.BarChart
+                android:layout_marginTop="15dp"
+                android:id="@+id/bar"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+        </com.github.mikephil.charting.charts.BarChart>
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

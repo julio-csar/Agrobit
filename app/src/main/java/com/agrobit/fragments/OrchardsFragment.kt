@@ -92,6 +92,13 @@ class OrchardsFragment : Fragment()
             }
 
         })
+        vista.findViewById<FloatingActionButton>(R.id.new_orchard).setOnLongClickListener(object:View.OnLongClickListener{
+            override fun onLongClick(p0: View?): Boolean {
+                Toast.makeText(context, "Agregar huerta",Toast.LENGTH_LONG)
+                return true
+            }
+
+        })
         vista.findViewById<ImageView>(R.id.refresh_button).setOnClickListener(object :View.OnClickListener{
             override fun onClick(p0: View?) {
                 getList()
@@ -185,7 +192,7 @@ class OrchardsFragment : Fragment()
         }
         private fun addCoord(orchard: Orchard):JSONObject{
             var js=JSONObject()
-            for(x in orchard.cords){
+            for(x in orchard.cords?.asIterable()!!){
                 js.put(x.key.toString(),x.value)
             }
             return js
